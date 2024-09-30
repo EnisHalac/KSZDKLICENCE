@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
+  <title><%= fanshopItem.name %> - NK Celik Fanshop</title>
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/fanshopPurchase.css">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="/images/logo.png">
+</head>
+<body>
+  <%- include('navbar') -%>
+  <div class="background-container">
+    <img src="/images/StadionCelik2.jpg" alt="Background Image" class="background-image">
+  </div>
+  <div class="main-section">
+    <div class="product-builder-wrapper">
+      <div class="image-section">
+        <div class="image-wrapper">
+          <img src="<%= fanshopItem.imageUrl %>" alt="<%= fanshopItem.name %>">
+        </div>
+      </div>
+      <div class="configuration-section">
+        <h1 class="item-title"><%= fanshopItem.name %></h1>
+        <h1 class="item-id" style="display: none;"><%= fanshopItem.id %></h1>
+        <h1 class="item-category" style="display: none;"><%= fanshopItem.category %></h1>
+        <% if (fanshopItem.category !== 'Karte') { %>
+        <p>Izaberi Veličinu</p>
+        <div class="velicine">
+          <button class="velicine-btn" id="sizeS" data-size="S">S</button>
+          <button class="velicine-btn" id="sizeM" data-size="M">M</button>
+          <button class="velicine-btn" id="sizeL" data-size="L">L</button>
+          <button class="velicine-btn" id="sizeXL" data-size="XL">XL</button>
+          <button class="velicine-btn" id="sizeXXL" data-size="XXL">XXL</button>
+          <input type="hidden" id="selectedSize" name="selectedSize" value="">
+
+        </div>
+        <% } else { %>
+          <input type="hidden" id="selectedSize" name="selectedSize" value=" ">
+        <% } %>
+        <div class="divider"></div>
+        <div class="price-wrapper">
+          <p class="price-title"><%= fanshopItem.price %> BAM</p>
+        </div>
+        <p>Količina</p>
+        <div class="submit-wrapper">
+          <div class="qty">
+            <div class="qty-buttons">
+              <button type="button" class="btn-dec" id="decreaseQty"> - </button>
+              <span class="qty-value" id="quantity">1</span>
+              <button type="button" class="btn-inc" id="increaseQty"> + </button>
+            </div>
+            <h1 class="item-id" style="display: none;"><%= fanshopItem.id %></h1>
+          </div>
+          <button class="add-to-cart-btn" >Dodaj u korpu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include('footer') -%>
+</body>
+
+<script>
+$(document).ready(function() {
+  var quantity = 1;
+
+  $('#increaseQty').click(function() {
+    quantity++;
+    $('#quantity').text(quantity);
+  });
+
+  $('#decreaseQty').click(function() {
+    if (quantity > 1) {
+      quantity--;
+      $('#quantity').text(quantity);
+    }
+  });
+
+  $('.velicine-btn').click(function() {
+  // Uklonite klasu selected-size sa svih dugmadi za veličinu
+  $('.velicine-btn').removeClass('selected-size');
+  
+  // Dodajte klasu selected-size na odabrano dugme za veličinu
+  $(this).addClass('selected-size');
+  
+  // Dobijte odabranu veličinu iz atributa data
+  var selectedSize = $(this).attr('data-size');
+  
+  // Postavite odabranu veličinu u skriveno polje (hidden input)
+  $('#selectedSize').val(selectedSize);
+});
+
+});
+
+
+</script>
+</html>

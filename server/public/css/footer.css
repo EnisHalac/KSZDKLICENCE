@@ -1,0 +1,178 @@
+.footer {
+    background-color: black;
+    color: white;
+    padding: 20px 0;
+    bottom: 0 ;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
+.contact-info {
+    text-align: left;
+}
+
+
+.contact-info p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    line-height: 11px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.sponsor-section {
+    padding: 20px 0;
+    max-height: 100px;
+
+}
+
+.sponsor-logos {
+    display: flex;
+    justify-content: center;
+}
+
+.sponsor-logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.logo {
+    width: 150px;
+    margin:  0 auto;
+
+}
+
+.right-section {
+    text-align: right;
+}
+
+.right-section h1 {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    line-height: 11px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.socials {
+    display: flex;
+}
+
+
+
+.socials a {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+
+button {
+    background-color: maroon;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+button:hover {
+    background-color: darkred;
+}
+
+
+@media (max-width: 768px) {
+
+
+    .container {
+        flex-direction: column;
+    }
+
+    .center-section .logo {
+        width: 50px;
+        margin-left: 0px;
+    }
+
+    .left-section .contact-info p {
+        font-size: 10px;
+    }
+
+    .left-section {
+        text-align: center;
+    }
+
+    .left-section button {
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
+
+    .right-section h1 {
+        font-size: 10px !important;
+    }
+
+    .sponsor-section .container {
+        display: flex;
+    }
+
+    .sponsor-logo {
+        flex-direction: row;
+        width: 70px;
+        margin-right: 5px;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .sponsor-logo {
+        flex-direction: row;
+        width: 100px;
+        margin-right: 5px;
+    }
+    .contact-info p {
+        font-size: 10px;
+    }
+    button{
+        font-size: 18px;
+        padding: 8px 11px;
+    }
+    .right-section h1{
+        font-size: 9px;
+    }
+
+}
+
+@media (min-width: 1024px) and (max-width: 1324px) {
+    .left-section {
+       width: 50%;
+    }
+
+    .sponsor-logo {
+        flex-direction: row;
+        width: 120px;
+        margin-right: 5px;
+    }
+    .contact-info p{
+        letter-spacing: -1px;
+    }
+}

@@ -1,0 +1,109 @@
+<%- include('navbar') -%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NK Celik</title>
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+</head>
+<body>
+    <div class="news-container">
+        <% newsArticles.slice(0, 3).forEach((article, index) => { %>
+            <div class="news-card <%= index === 0 ? 'large' : 'small' %>">
+                <img src="<%= article.imageUrl %>" alt="<%= article.title %>" class="news-image">
+                <div class="news-overlay">
+                    <p class="subtitle"><%= article.subtitle %></p>
+                    <h2 class="title"><%= article.title %></h2>
+                    <a href="/novosti/<%= article.title.toLowerCase().replace(/ /g, '-') %>/<%= article._id %>" class="btn btn-maroon">Opširnije</a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+    
+    <div class="new-section">
+        <% newsArticlesSmall.slice(0, 4).forEach((article, index) => { %>
+            <div class="news-card small>">
+                <img src="<%= article.imageUrl %>" alt="<%= article.title %>" class="news-image">
+                <div class="news-overlay">
+                    <p class="subtitle"><%= article.subtitle %></p>
+                    <h2 class="title"><%= article.title %></h2>
+                    <a href="/novosti/<%= article.title.toLowerCase().replace(/ /g, '-') %>/<%= article._id %>" class="btn btn-maroon">Opširnije</a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+    <div class="player-stats">
+        <div class="left-section">
+            <div class="topLeft">
+                <h3 class="section-h3">Sezona 2023/24</h3>
+                <h2 class="section-h2">Prvi tim</h2>
+            </div>
+          
+    
+            <div class="player-box">
+                <div class="player-info">
+                    <span class="number">30</span>
+                    <span class="last-name">ISAKOVIĆ</span>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <svg class="progress-ring" width="64" height="64">
+                            <circle stroke="#1F2337" stroke-width="2" fill="transparent" r="30" cx="32" cy="32"></circle>
+                            <circle class="progress-ring__circle" stroke="#5D0D10" stroke-dashoffset="188.4956" stroke-dasharray="188.4956 188.4956" stroke-width="4" fill="transparent" r="30" cx="32" cy="32"></circle>
+                            <text fill="#fff" x="50%" y="50%" text-anchor="middle" dy=".4em">0</text>
+                        </svg>
+                        <span class="stat-name">Utakmice</span>
+                    </div>
+                    <div class="stat">
+                        <svg class="progress-ring" width="64" height="64">
+                            <circle stroke="#1F2337" stroke-width="2" fill="transparent" r="30" cx="32" cy="32"></circle>
+                            <circle class="progress-ring__circle" stroke="#5D0D10" stroke-dashoffset="188.4956" stroke-dasharray="188.4956 188.4956" stroke-width="4" fill="transparent" r="30" cx="32" cy="32"></circle>
+                            <text  fill="#fff" x="50%" y="50%" text-anchor="middle" dy=".4em">0</text>
+                        </svg>
+                        <span class="stat-name">Golovi</span>
+                    </div>
+                    <div class="stat">
+                        <svg class="progress-ring" width="64" height="64">
+                            <circle stroke="#1F2337" stroke-width="2" fill="transparent" r="30" cx="32" cy="32"></circle>
+                            <circle class="progress-ring__circle" stroke="#5D0D10" stroke-dashoffset="188.4956" stroke-dasharray="188.4956 188.4956" stroke-width="4" fill="transparent" r="30" cx="32" cy="32"></circle>
+                            <text fill="#fff"  x="50%" y="50%" text-anchor="middle" dy=".4em">0</text>
+                        </svg>
+                        <span class="stat-name">Asistencije</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="player-image">
+            <img src="images/Isakovic.png" alt="Player Image">
+        </div>
+    </div>
+
+    <div class="shop-section">
+        <div class="topLeft">
+            <h3 class="section-h3">NK CELIK</h3>
+            <h2 class="section-h2">FAN SHOP</h2>
+        </div>
+        <div class="shop-items">
+            <% firstFourFanShopItems.forEach(item => { %>
+            <div class="shop-item">
+                <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                <h2><%= item.name %></h2>
+                <p><%= item.price %> KM</p>
+                <a href="/fanshop/<%= item.name.toLowerCase().replace(/ /g, '-') %>/<%= item._id %>" class="btn btn-maroon btn-buy">Kupi</a>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+    
+   
+    <%- include('footer') -%>
+
+    
+    
+
+</body>
+</html>

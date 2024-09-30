@@ -1,0 +1,256 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.novosti {
+  margin: 20px 0;
+}
+
+.primarna-novost img,
+.novost img {
+  max-width: 100%;
+  height: auto;
+}
+
+.tekst-novosti {
+  padding: 10px;
+}
+
+h1 {
+  color: #ffffff;
+}
+
+p {
+  color: #ffffff;
+  margin: 5px 0;
+}
+
+.tekst-novosti {
+  padding: 10px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.procitaj-vise:hover {
+  background-color: #c82333;
+}
+
+.mreza-novosti {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.mreza-novosti1{
+  display: flex;
+}
+.mreza-novosti1.novost{
+  width: 70%;
+}
+.mreza-novosti1 .novost:first-child {
+  margin-right: 20px;
+}
+
+.mreza-novosti1 .novost:last-child {
+  margin-left: 0px;
+}
+.wrapper{
+  margin: 0 10%;
+}
+.novost img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px; 
+}
+.mreza-novosti1 {
+  display: flex;
+}
+.novost {
+  position: relative;
+  overflow: hidden;
+}
+
+.novost img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+
+.novost:hover img {
+  transform: scale(1.05);
+}
+
+.novost::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 100%);
+  opacity: 1;
+  border-radius: 20px;
+}
+
+.tekst-novosti {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: #fff;
+  transition: opacity 0.3s ease;
+  text-align: center;
+}
+
+.novost:hover .tekst-novosti {
+  opacity: 1;
+}
+.mreza-novosti .novost {
+  margin-bottom: 40px;
+}
+.mreza-novosti1 .novost {
+  margin-bottom: 40px; 
+}
+
+.novost .btn {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 15px;
+  transition: font-size 0.3s ease; 
+}
+
+
+.novost:hover .btn {
+  font-size: -20px; 
+}
+.novost .tekst-novosti {
+  position: absolute;
+  bottom: 40px; 
+  left: 20px;
+  color: #fff;
+  transition: bottom 0.3s ease;
+}
+.novost:hover .tekst-novosti {
+  bottom: 30px;
+}
+.novost img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+.novost:hover img {
+  transform: scale(1.05);
+}
+.novost:hover .tekst-novosti p {
+  opacity: 0;
+}
+.novost:not(:hover) .tekst-novosti p {
+  opacity: 1;
+}
+.novost:hover .btn {
+  position: absolute; 
+  bottom: 20px; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  transition: bottom 0.5s ease 0.3s;
+}
+.novost:hover h1 {
+  margin-bottom: 40px; 
+}
+.novost:hover h1 {
+  text-shadow: 4px 4px 5px rgba(0, 0, 0, 50); 
+}
+@media screen and (max-width: 500px) {
+  .mreza-novosti {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media screen and (max-width: 1025px) {
+  .mreza-novosti1 {
+    display: flex;
+    flex-direction: column;
+  }
+  .mreza-novosti1 .novost {
+    width: 100%;
+    margin-right: auto; 
+    margin-left: auto; 
+  }
+  .tekst-novosti h1 {
+    font-size: 16px;
+  }
+  .tekst-novosti p {
+    font-size: 12px; 
+  }
+  .tekst-novosti .btn {
+    font-size: 12px; 
+  }
+  .novost:hover .tekst-novosti {
+    bottom: 0; 
+  }
+}
+
+
+.novost .tekst-novosti {
+  min-width: 90%;
+}
+
+.mreza-novosti .novost, .mreza-novosti .novost img{
+  height: 300px;
+  width: 100%;
+}
+
+.mreza-novosti .novost h1{
+  font-size: 25px !important;
+}
+
+.news-details img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 20px; 
+  max-width: 100%;
+  height: auto;
+}
+.news-details {
+  padding: 20px;
+  max-width: 800px; 
+  margin: 0 auto;
+  
+}
+
+.news-details h2 {
+  text-align: center;
+  font-size: 28px; 
+  font-weight: 800; 
+  margin-bottom: 20px; 
+  
+}
+.novosti-label {
+  color: rgb(200, 0, 0); 
+  font-size: 20px; 
+  font-weight: 800; 
+  text-transform: uppercase; 
+  margin-bottom: 5px;
+  margin-right: 10px;
+  margin-top: 10px; 
+}
+.naslov-linija {
+  border: none;
+  border-top: 2px solid red; 
+  margin-left: 5px;
+  margin-bottom: 30px;
+}
+.news-details p {
+  margin-top: 15px;
+  font-size: 17px; 
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 40px;
+}

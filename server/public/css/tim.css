@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+body {
+  background:url('/images/StadionCelik2.jpg') ;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.wrapper {
+  margin: 0 10%;
+}
+
+.season {
+  text-align: center;
+  color: white;
+  font-weight: 400;
+}
+
+.team-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.position-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.position-group h2 {
+  width: 100%;
+  text-align: center;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.team-member {
+  position: relative;
+  width: calc(25% - 20px);
+  margin: 10px;
+  box-sizing: border-box;
+}
+
+.team-member img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.player-info , .staff-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  transition: height 0.5s, background-color 0.5s;
+  height: 50px;
+  overflow: hidden;
+}
+
+.team-member:hover .player-info  {
+  height: 100px;
+}
+
+.additional-info {
+  display: none;
+}
+
+.team-member:hover .additional-info {
+  display: block;
+}
+
+.player-number  {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-top-right-radius: 5px;
+  font-size: 35px;
+  font-weight: bold;
+  color: black;
+  text-shadow: 2px 2px 2px hsl(0, 0%, 45%);
+}
+
+.player-name , 
+.staff-name{
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: rgb(226, 17, 17);
+  text-shadow: 2px 2px 2px black;
+}
+
+.player-surname ,
+.staff-surname{
+  font-size: 20px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: black;
+  text-shadow: 2px 2px 2px hsl(0, 0%, 45%); 
+}
+
+.position-group h2 {
+  text-shadow: 2px 2px 2px black;
+  font-weight: 400;
+}
+
+.navigation-buttons-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  text-align: center;
+}
+
+.navigation-button {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 8px 16px;
+  margin: 0 10px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.5s, box-shadow 0.5s;
+  box-shadow: 2px 4px 6px black;
+}
+
+.navigation-button:hover {
+  background-color: red;
+  box-shadow: 2px 6px 8px black;
+}
+
+@media only screen and (max-width: 600px) {
+  .team-member {
+    width: 100%;
+  }
+  .navigation-button {
+    font-size: 6px;
+    padding: 5px 10px;
+    margin: 0 3px;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .team-member {
+    width: 45%;
+    margin: 2.5%;
+  }
+  .navigation-button {
+    font-size: 8px;
+    padding: 10px 20px;
+    margin: 0 5px;
+  }
+}

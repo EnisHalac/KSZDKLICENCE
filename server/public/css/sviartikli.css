@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Nunito Sans', Arial, sans-serif;
+}
+
+.svi {
+    margin-left: 20px; /* Adjust this value as needed */
+    position: relative;
+    display: inline-block; /* To position the underline correctly */
+}
+
+.svi::after  {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px; /* Adjust the thickness of the underline as needed */
+    background-color: red; /* Color of the underline */
+    position: absolute;
+    left: 0;
+    bottom: -5px; /* Adjust this value to control the distance from the text */
+}
+
+.artikli-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Ensure new rows start from the left */
+    gap: 20px; /* Add space between the cards */
+    padding: 20px; /* Add padding around the container */
+}
+
+.artikal-kartica {
+    flex: 1 1 calc(25% - 40px); /* Four cards per row with space for margins */
+    max-width: calc(25% - 40px); /* Ensure no more than four cards per row */
+    margin: 10px; /* Margin between cards */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.artikal-kartica img {
+    width: 100%;
+    height: 200px; /* Set a fixed height for uniformity */
+    object-fit: cover; /* Ensures the image covers the container, cropping if necessary */
+    border-radius: 8px; /* Match border radius of the card */
+    margin-bottom: 10px;
+}
+
+.artikal-kartica h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.btn-kupi {
+    background-color: maroon;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.btn-kupi:hover {
+    background-color: darkred;
+}
+@media (max-width: 1024px) {
+  .artikal-kartica {
+      flex: 1 1 calc(50% - 40px); /* Two cards per row on iPad Mini */
+      max-width: calc(50% - 40px);
+  }
+}
+
+@media (max-width: 768px) {
+  .artikal-kartica {
+      flex: 1 1 calc(33.33% - 20px); /* Three cards per row on tablets */
+      max-width: calc(33.33% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .artikal-kartica {
+      flex: 1 1 100%; /* One card per row on phones */
+      max-width: 100%;
+  }
+}
+#filter-button {
+    margin-left: 20px; /* Adjust the margin as needed */
+  }
+
+  }
+}
+
+@media (max-width: 768px) {
+  .artikal-kartica {
+      flex: 1 1 calc(33.33% - 20px); /* Three cards per row on tablets */
+      max-width: calc(33.33% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .artikal-kartica {
+      flex: 1 1 100%; /* One card per row on phones */
+      max-width: 100%;
+  }
+}
+

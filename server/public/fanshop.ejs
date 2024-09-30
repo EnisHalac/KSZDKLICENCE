@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NK Čelik</title>
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/fanshop.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+
+  <link rel="icon" type="image/x-icon" href="images/logo.png">
+</head>
+<body>
+    <%- include('navbar') -%>
+  <div class="head-section">
+    <div class="dobrodoslica">
+      <h1>Dobrodošli na NK Čelik Fan Shop!</h1>
+      <p>Istražite našu kolekciju suvenira i pokažite podršku za fudbalski klub NK Čelik.</p>
+      <button class="btn btn-maroon btn-svi-artikli" onclick="window.location.href='/sviartikli'">Svi Artikli</button>
+    </div>
+  </div>
+  <div class="main-section">
+
+    <div class="product-builder-wrapper">
+
+      <div class="image-section">
+        <p class="item-title title">Dres NK Čelik</p>
+        <div class="image-wrapper">
+          <img src="/images/fanshop/dres.png" class="domaci-dres">
+          <img src="/images/gostujuci-removebg-preview.png" class="gostujuci-dres">
+        </div>
+      </div>
+      <div class="configuration-section">
+        <p class="section-title">Izaberite Garnituru</p>
+        <div class="velicine">
+          <button class="velicine-btn garnitura-btn" data-garnitura="domaci">Gostujući dres 2023/2024</button>
+          <button class="velicine-btn garnitura-btn" data-garnitura="gostujuci">Domaći dres 2023/2024</button>
+        </div>
+        <div class="divider"></div>
+        <p>Izaberi Veličinu</p>
+        <div class="velicine">
+          <button class="velicine-btn velicina-btn" id="sizeS" data-size="S">S</button>
+          <button class="velicine-btn  velicina-btn" id="sizeM" data-size="M">M</button>
+          <button class="velicine-btn  velicina-btn" id="sizeL" data-size="L">L</button>
+          <button class="velicine-btn  velicina-btn" id="sizeXL" data-size="XL">XL</button>
+          <button class="velicine-btn  velicina-btn" id="sizeXXL" data-size="XXL">XXL</button>
+    
+          <input type="hidden" id="selectedSize" name="selectedSize" value="">
+
+        </div>
+        <div class="divider ng-star-inserted"></div>
+        <div>
+          <p class="section-title">Napravite sami</p>
+          <div class="radios-wrapper velicine">
+            <div style="width: fit-content;">
+              <button class="velicine-btn napravi-btn">Bez natpisa</button>
+            </div>
+            <div style="width: fit-content;">
+              <button class="velicine-btn napravi-btn">Izaberite igrača</button>
+            </div>
+            <div style="width: fit-content;">
+              <button class="velicine-btn napravi-btn">Lično</button>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="selectable-configuration"></div>
+        </div>
+        <div class="price-wrapper">
+          <p class="price-title">119.00 BAM</p>
+        </div>
+        <p>Količina</p>
+        <div class="submit-wrapper">
+          <div class="qty">
+            <div class="qty-buttons">
+              <button type="button" class="btn-dec" id="decreaseQty"> - </button>
+              <span class="qty-value" id="quantity">1</span>
+              <button type="button" class="btn-inc" id="increaseQty"> + </button>
+            </div>
+          </div>
+          <button class="add-to-cart-btn">Dodaj u korpu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="shop-section">
+    <div class="topLeft">
+      <h3 class="section-h3">NK CELIK</h3>
+      <h2 class="section-h2">FAN SHOP</h2>
+    </div>
+    <div class="shop-items">
+      <% firstFourFanShopItems.forEach(item => { %>
+      <div class="shop-item">
+        <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+        <h2><%= item.name %></h2>
+        <p><%= item.price %> KM</p>
+        <a href="/fanshop/<%= item.name.toLowerCase().replace(/ /g, '-') %>/<%= item._id %>" class="btn btn-maroon btn-buy">Kupi</a>
+      </div>
+      <% }) %>
+    </div>
+
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('.gostujuci-dres').hide();
+
+    $(".garnitura-btn").click(function() {
+        var garnitura = $(this).data('garnitura');
+        if (garnitura === 'domaci') {
+            $('.domaci-dres').show();
+            $('.gostujuci-dres').hide();
+        } else if (garnitura === 'gostujuci') {
+            $('.domaci-dres').hide();
+            $('.gostujuci-dres').show();
+        }
+    });
+    var quantity = 1;
+
+
+    $('#increaseQty').click(function() {
+            quantity++;
+            $('#quantity').text(quantity);
+    });
+
+
+    $('#decreaseQty').click(function() {
+        if (quantity > 1) {
+            quantity--;
+            $('#quantity').text(quantity);
+        }
+    });
+
+    $(".napravi-btn").click(function() {
+        $(".napravi-btn").removeClass("selected");
+        $(this).addClass("selected");
+    });
+    $(".garnitura-btn").click(function() {
+
+        $(".garnitura-btn").removeClass("selected");
+        $(this).addClass("selected");
+    });
+    $(".velicina-btn").click(function() {
+        $(".velicina-btn").removeClass("selected");
+        $(this).addClass("selected");
+    });
+
+    $('.velicina-btn').click(function() {
+  // Uklonite klasu selected-size sa svih dugmadi za veličinu
+  $('.velicina-btn').removeClass('selected-size');
+  
+  // Dodajte klasu selected-size na odabrano dugme za veličinu
+  $(this).addClass('selected-size');
+  
+  // Dobijte odabranu veličinu iz atributa data
+  var selectedSize = $(this).attr('data-size');
+  
+  // Postavite odabranu veličinu u skriveno polje (hidden input)
+  $('#selectedSize').val(selectedSize);
+});
+});
+
+</script>
+  <%- include('footer') -%>
+</body>
+</html>

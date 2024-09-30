@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NK Čelik Team</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/tim.css">
+  <link rel="icon" type="image/x-icon" href="images/logo.png">
+</head>
+<body>
+  <%- include('navbar') -%>
+    <div class="wrapper">
+      <h1 class="season">Sezona: 2023/2024</h1>
+
+      <div style="justify-content: center;" class="navigation-buttons-container">
+        <a href="#staff-group" class="navigation-button">STRUČNI ŠTAB</a>
+        <a href="#medical-group" class="navigation-button">MEDICINSKO OSOBLJE</a>
+        <a href="#economic-group" class="navigation-button">EKONOMAT</a>
+      </div>
+
+      <div class="team-container" id="team-container">
+
+        <div class="position-group" id="staff-group">
+          <h2 >STRUČNI ŠTAB</h2>
+        </div>
+
+        <div class="position-group" id="medical-group">
+          <h2 >MEDICINSKO OSOBLJE</h2>
+        </div>
+
+        <div class="position-group" id="economic-group">
+          <h2 >EKONOMAT</h2>
+        </div>
+
+      </div>
+    </div>
+    <%- include('footer') -%>
+  <script src="js/staff.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</body>
+</html>

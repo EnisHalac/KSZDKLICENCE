@@ -1,0 +1,60 @@
+<%- include('navbar') -%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NK Celik</title>
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/kontakt.css">
+  <link rel="icon" type="image/x-icon" href="images/logo.png">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+          <h2>Kontakt Forma</h2>
+          <form>
+            <div class="row">
+              <div class="col">
+                <input type="text" id="name" name="name" placeholder="Ime" required>
+              </div>
+              <div class="col">
+                <input type="text" id="lastname" name="lastname" placeholder="Prezime" required>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                  </div>
+              <div class="col">
+                <input type="text" id="subject" name="subject" placeholder="Naslov" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <textarea id="message" name="message" placeholder="Poruka" required></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input type="submit" class="btn" value="Pošalji">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="map-container">
+          <h2>Lokacija</h2>
+          <div id="map"><iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=17.904399633407596%2C44.20435449292701%2C17.910193204879764%2C44.20756157259541&amp;layer=mapnik&amp;marker=44.205958054586915%2C17.907296419143677" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/?mlat=44.20596&amp;mlon=17.90730#map=18/44.20596/17.90730">View Larger Map</a></small></div>
+        </div>
+      </div>
+      
+      
+    <%- include('footer') -%>
+
+    
+    
+
+</body>
+</html>

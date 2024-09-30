@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-container, .map-container {
+  width: calc(50% - 10px);
+}
+
+.form-container {
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+
+.map-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  height: 430px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.col {
+  width: 48%;
+}
+
+input[type="text"],
+input[type="email"] {
+  width: calc(100% - 10px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+textarea {
+  width: calc(100% ); /* Ostatak prostora nakon širine labele */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+textarea {
+  height: 150px;
+}
+
+input[type="submit"] {
+  background-color: red;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  display: block;
+  margin: 0 auto; /* Centriranje dugmeta */
+}
+
+input[type="submit"]:hover {
+  background-color: red;
+}
+
+input[type="submit"]:focus {
+  outline: none;
+}
+
+#map {
+  height: 300px;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: -50px;
+}
+
+.row {
+    display: flex;
+    justify-content: center; /* Centriranje elemenata */
+    margin-bottom: 20px;
+  }
+  
+  .col {
+    width: 100%; /* Promenjeno da zauzima celu širinu */
+  }
+  
+  input[type="submit"] {
+    background-color: red;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+
+  

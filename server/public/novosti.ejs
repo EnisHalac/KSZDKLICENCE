@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NK Celik</title>
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/novosti.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="icon" type="image/x-icon" href="images/logo.png">
+</head>
+<body>
+  <%- include('navbar') -%>
+  <div class="wrapper">
+    <div class="novosti">
+      <div class="mreza-novosti1">
+        <% newsArticles.slice(0, 2).forEach(article => { %> 
+          <div class="novost">
+            <img src="<%= article.imageUrl %>" alt="<%= article.title %>">
+            <div class="tekst-novosti">
+              <h1><%= article.title %></h1>
+              <p>Datum: <%= article.date.toDateString() %></p>
+              <p><%= article.content.split(" ").slice(0, 10).join(" ") %>...</p>
+<a href="/novosti/<%= article.title.toLowerCase().replace(/ /g, '-') %>/<%= article._id %>" class="btn btn-maroon opširnije-btn">Opširnije</a>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+      <div class="mreza-novosti">
+        <% newsArticles.slice(2).forEach(article => { %>
+          <div class="novost">
+            <img src="<%= article.imageUrl %>" alt="<%= article.title %>">
+            <div class="tekst-novosti">
+              <h1><%= article.title %></h1>
+              <p>Datum: <%= article.date.toDateString() %></p>
+              <p><%= article.content.split(" ").slice(0, 10).join(" ") %>...</p>
+<a href="/novosti/<%= article.title.toLowerCase().replace(/ /g, '-') %>/<%= article._id %>" class="btn btn-maroon opširnije-btn">Opširnije</a>
+
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+<%- include('footer') -%>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</html>

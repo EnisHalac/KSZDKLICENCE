@@ -1,0 +1,109 @@
+
+
+.profile-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-header img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.ticket {
+    display: flex;
+    align-items: center;
+}
+
+.ticket-info {
+    flex: 1; /* Take up remaining space */
+}
+
+.ticket-count {
+    margin-left: auto; /* Move to the right */
+}
+
+
+.profile-header h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.profile-header p {
+    color: #666;
+    margin: 0;
+}
+
+.profile-info {
+    margin-bottom: 20px;
+}
+
+.profile-info label {
+    font-weight: bold;
+}
+
+.profile-info p {
+    margin: 5px 0;
+}
+
+.tickets-section,
+.fanshop-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tickets-section h2,
+.fanshop-section h2 {
+    margin-bottom: 10px;
+}
+
+
+
+.tickets-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tickets-section h2 {
+    margin-bottom: 10px;
+}
+
+.ticket {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ticket img {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.ticket-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.ticket-name {
+    margin-bottom: 5px;
+}
+

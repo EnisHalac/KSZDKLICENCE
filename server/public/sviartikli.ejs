@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Svi Artikli</title>
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/sviartikli.css">
+  <link rel="icon" type="image/x-icon" href="images/logo.png">
+</head>
+<body>
+    <%- include('navbar') -%>
+    <h1 class="svi">SVI ARTIKLI</h1>
+    <div class="filter-container">
+        <button id="filter-button">Filter</button>
+        <div id="filter-dropdown" class="filter-dropdown" style="display: none;">
+            <% allCategories.forEach(category => { %>
+                <div>
+                    <input type="checkbox" class="filter-checkbox" value="<%= category %>" id="<%= category %>">
+                    <label for="<%= category %>"><%= category %></label>
+                </div>
+            <% }); %>
+            <button id="apply-filters">Pretrazi</button>
+        </div>
+    <div class="artikli-container">
+        <% fanShopItems.forEach(item => { %>
+            <div class="artikal-kartica">
+                <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                <h2><%= item.name %></h2>
+                <p>Kategorija: <%= item.category %></p>
+                <p>Cijena: <%= item.price %>KM</p>
+                <a href="/fanshop/<%= item.name.toLowerCase().replace(/ /g, '-') %>/<%= item._id %>" class="btn-kupi">Kupi</a>
+            </div>
+        <% }) %>
+    </div>
+    <%- include('footer') -%>
+    <script>
+       document.getElementById('filter-button').addEventListener('click', () => {
+           const dropdown = document.getElementById('filter-dropdown');
+           dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+       });
+
+       document.getElementById('apply-filters').addEventListener('click', () => {
+           const checkboxes = document.querySelectorAll('.filter-checkbox');
+           const selectedCategories = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+           const queryParams = selectedCategories.length > 0 ? `?categories=${selectedCategories.join(',')}` : '';
+           window.location.href = `/sviartikli${queryParams}`;
+       });
+    </script>
+</body>
+</html>

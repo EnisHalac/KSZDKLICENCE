@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NK Čelik Team</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/tim.css">
+  <link rel="icon" type="image/x-icon" href="images/logo.png">
+</head>
+<body>
+  <%- include('navbar') -%>
+    <div class="wrapper">
+
+      <h1 class="season">Sezona: 2023/2024</h1>
+      <div class="navigation-buttons-container">
+        <a href="#goalkeeper-group" class="navigation-button">GOLMANI</a>
+        <a href="#defense-group" class="navigation-button">ODBRANA</a>
+        <a href="#midfield-group" class="navigation-button">VEZNI RED</a>
+        <a href="#attack-group" class="navigation-button">NAPAD</a>
+        
+      </div>
+
+
+      <div class="team-container" id="team-container">
+
+        <div class="position-group" id="goalkeeper-group">
+          <h2 >GOLMANI</h2>
+        </div>
+
+        <div class="position-group" id="defense-group">
+          <h2 >ODBRANA</h2>
+        </div>
+
+        <div class="position-group" id="midfield-group">
+          <h2 >VEZNI RED</h2>
+        </div>
+
+        <div class="position-group" id="attack-group">
+          <h2>NAPAD</h2>
+        </div>
+      </div>
+
+    </div>
+    <%- include('footer') -%>
+  <script src="js/prviTim.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+</body>
+</html>

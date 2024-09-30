@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NK Celik</title>
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/novosti.css">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="/images/logo.png">
+</head>
+<body>
+  <%- include('navbar') -%>
+  <section class="news-details">
+    <img src="<%= newsArticle.imageUrl %>" alt="<%= newsArticle.title %>">
+    <div class="novosti-label">NOVOSTI</div>
+    <h2><%= newsArticle.title %></h2>
+    <hr class="naslov-linija">
+    <p style="color: black;"><%= newsArticle.content %></p>
+  </section>
+  <%- include('footer') -%>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</html>

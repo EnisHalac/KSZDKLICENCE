@@ -1,0 +1,143 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  color: white;
+}
+
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(5px);
+}
+  
+  .main-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    height: calc(100vh - 200px); 
+  }
+  
+  .product-builder-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px;
+  
+    width: 1200px;
+    
+  }
+  
+  .image-section {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .configuration-section {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .image-wrapper img {
+    width: 450px;
+    height: auto;
+    border-radius: 20px;
+  }
+  
+  .item-title {
+    text-align: left;
+    font-size: 32px;
+    font-family: 'Oswald', sans-serif;
+    color: white;
+  }
+  
+  .velicine {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .velicine-btn {
+    font-family: 'Oswald', sans-serif;
+    background-color: #fff;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .velicine-btn:hover {
+    background-color: red;
+    color: #fff;
+  }
+  
+  .price-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+    color: white;
+  }
+  
+  .qty {
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
+    margin-right: 10px;
+    font-weight: 900;
+  }
+  
+  .qty-buttons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .btn-dec, .btn-inc {
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .qty-value {
+    padding: 5px 10px;
+    font-size: 16px;
+  }
+  
+  .submit-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-to-cart-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Oswald', sans-serif;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #40001e;
+  }
+  .selected-size {
+    background-color: red;
+    color: #fff;
+  }
+  
+  .cart-item-details h3, .cart-item-details p {
+color: black;
+}

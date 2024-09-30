@@ -1,0 +1,229 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: white;
+}
+
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(5px);
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.left, .right, .bottom-left, .bottom-right {
+    width: 48%;
+    margin-bottom: 40px;
+}
+
+.left {
+    order: 1;
+}
+
+.right {
+    order: 2;
+}
+
+.bottom-left {
+    order: 3;
+}
+
+.bottom-right {
+    order: 4;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+div {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input,
+textarea,
+button {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 250px;
+    resize: none;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 550px;
+}
+
+.delete-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+}
+
+.news-item,
+.fan-shop-item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid white;
+}
+
+.news-header,
+.fan-shop-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 60%;
+}
+
+.news-header strong,
+.fan-shop-header strong {
+    font-weight: bold;
+}
+
+.news-content-preview {
+    margin-top: 5px;
+}
+
+button.delete-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #f44336;
+    font-size: 18px;
+}
+
+button.delete-button:hover {
+    color: #d32f2f;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.date_delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fan-shop-delete {
+    display: flex;
+    align-items: center;
+}
+
+.fan-shop-delete input {
+    width: 80px;
+    margin-right: 10px;
+}
+
+.fan-shop-item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid white;
+}
+
+.fan-shop-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 60%;
+}
+
+.fan-shop-header strong {
+    font-weight: bold;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: none;
+    width: 350px;
+    height: 350px;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: auto;
+    padding-top: 20px;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 300px;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+.delete-number{
+    font-size: 0.7em;
+}
+
+.add-button{
+    background-color: maroon;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
