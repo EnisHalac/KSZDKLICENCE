@@ -1,0 +1,45 @@
+<%- include('navbar') -%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NK Celik</title>
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+</head>
+<h1>Standings for <%= category %></h1>
+<table>
+  <thead>
+    <tr>
+      <th>Team</th>
+      <th>Matches Played</th>
+      <th>Wins</th>
+      <th>Draws</th>
+      <th>Losses</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% standings.forEach(team => { %>
+      <tr>
+        <td><%= team.name %></td>
+        <td><%= team.matchesPlayed %></td>
+        <td><%= team.wins %></td>
+        <td><%= team.draws %></td>
+        <td><%= team.losses %></td>
+        <td><%= team.points %></td>
+      </tr>
+    <% }); %>
+  </tbody>
+</table>
+   
+<%- include('footer') -%>
+
+    
+    
+
+</body>
+</html>

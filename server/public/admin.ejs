@@ -66,60 +66,48 @@
             </div>
         
 
-        <div class="bottom-left">
-          <h1>Dodaj proizvod u fan shop</h1>
-          <form action="/admin/fanshop/add" method="POST">
-            <div>
-              <label for="name">Naziv proizvoda</label>
-              <input type="text" id="name" placeholder="Unesi naziv proizvoda" name="name" required>
+            <div class="bottom-left">
+              <h1>Dodaj utakmicu</h1>
+              <form action="/admin/utakmica/add" method="POST">
+                <div>
+                  <label for="domacin">Domaćin</label>
+                  <select id="domacin" name="domacin" required>
+                    <% teams.forEach(team => { %>
+                      <option value="<%= team.name %>"><%= team.name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+            
+                <div>
+                  <label for="gost">Gost</label>
+                  <select id="gost" name="gost" required>
+                    <% teams.forEach(team => { %>
+                      <option value="<%= team.name %>"><%= team.name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+            
+                <div>
+                  <label for="rezultat">Rezultat</label>
+                  <input type="text" id="rezultat" placeholder="0:0" name="rezultat" required>
+                </div>
+            
+                <div>
+                  <label for="kategorija">Kategorija</label>
+                  <select id="kategorija" name="kategorija" required>
+                    <option value="pioniri">Pioniri</option>
+                    <option value="predpioniri">Predpioniri</option>
+                    <option value="kadeti">Kadeti</option>
+                    <option value="juniori">Juniori</option>
+                  </select>
+                </div>
+            
+                <button class="add-button" type="submit">Dodaj utakmicu</button>
+              </form>
             </div>
-            <div>
-              <label for="category">Kategorija</label>
-              <select id="category" name="category" required>
-                <option value="none" >Odaberi kategoriju</option>
-                <option value="Majica">Majica</option>
-                <option value="Dresovi">Dresovi</option>
-                <option value="Dukserice">Dukserice</option>
-                <option value="Karte">Karte</option>
-              </select>
-            </div>
-            <div>
-              <label for="price">Cijena</label>
-              <input type="number" id="price" placeholder="Cijena" name="price" required>
-            </div>
-            <div>
-              <label for="imageUrl">URL slike</label>
-              <input type="text" id="imageUrl" placeholder="URL slike" name="imageUrl" required>
-            </div>
-            <div>
-              <label for="quantity">Količina</label>
-              <input type="number" id="quantity" placeholder="Količina na stanju" name="quantity" required>
-            </div>
-            <button class="add-button" type="submit">Dodaj proizvod</button>
-          </form>
-        </div>
+            
         <div class="bottom-right">
-          <h1>Obriši proizvod iz fan shopa</h1>
-          <ul>
-            <% fanShopItems.forEach(item => { %>
-              <li class="fan-shop-item">
-                <div class="item-image">
-                  <img style="width: 50px; height: 50px; cursor: pointer;" src="<%= item.imageUrl %>" alt="<%= item.name %>" onclick="openModal('<%= item.imageUrl %>')">
-                </div>
-                <div class="fan-shop-header">
-                  <strong><%= item.name %></strong>
-                  <small>Veličina: <%= item.size %> | Cijena: <%= item.price %></small>
-                </div>
-                <div class="fan-shop-delete">
-                  <form action="/admin/fanshop/delete/<%= item._id %>" method="POST" class="delete-form">
-                    <button type="submit" class="delete-button">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </form>
-                </div>
-              </li>
-            <% }) %>
-          </ul>
+        
         </div>
         
     </div>
