@@ -1,4 +1,3 @@
-<!-- navbar.ejs -->
 <link rel="icon" type="image/x-icon" href="images/logo.png">
 <div class="navbar">
   <div class="navbar-logo">
@@ -7,30 +6,27 @@
     </a>
   </div>
 
-  <div class="sponsors">
-    <div class="sponsor-logo">
-      <img src="/images/sponsors/betole.png" alt="Sponsor 1">
-    </div>
-    <div class="sponsor-logo">
-      <img src="/images/sponsors/telemach-logo.png" alt="Sponsor 2">
-    </div>
-    <div class="sponsor-logo">
-      <img src="/images/sponsors/Pan.png" alt="Sponsor 3">
-    </div>
-    <div class="sponsor-logo">
-      <img src="/images/sponsors/RMLH.png" alt="Sponsor 4">
-    </div>
-  </div>
-
   <div class="navbar-links">
     <a href="/home">Početna</a>
+    <!-- Dropdown za Selekcije -->
     <div class="dropdown">
-      <a class="dropbtn" onclick="openDropdown()" id="dropbtn">Tim <span class="dropdown-icon">&#9662;</span></a>
-      <div class="dropdown-content" id="myDropdown">
-        <a href="/tim">Igrači</a>
-        <a href="/staff">Stručni štab</a>
+      <a class="dropbtn" onclick="openDropdown('selekcijeDropdown')" id="selekcijeDropbtn">Selekcije <span class="dropdown-icon">&#9662;</span></a>
+      <div class="dropdown-content" id="selekcijeDropdown">
+        <a href="/tim">Predpioniri</a>
+        <a href="/tim">Pioniri</a>
+        <a href="/tim">Kadeti</a>
+        <a href="/tim">Juniori</a>
       </div>
     </div>
+    <!-- Dropdown za Stručni štab -->
+    <div class="dropdown">
+      <a class="dropbtn" onclick="openDropdown('strucniDropdown')" id="strucniDropbtn">Stručni štab <span class="dropdown-icon">&#9662;</span></a>
+      <div class="dropdown-content" id="strucniDropdown">
+        <a href="/staff">Komesari</a>
+        <a href="/staff">Sudije</a>
+      </div>
+    </div>
+    
     <% if (typeof user !== 'undefined' && user) { %>
       <% if (user.type === 'admin') { %>
         <a href="/admin">Admin</a>
@@ -39,43 +35,18 @@
       <% } %>
       <a href="/novosti">Novosti</a>
       <a href="/logout">Odjava</a>
-      <a href="/fanshop">Fan Shop</a>
       <a href="/kontakt">Kontakt</a>
-      <div class="cart-container">
-        <a href="#" class="open-cart-btn"><i class="fa fa-shopping-cart"></i></a>
-        <span class="cart-item-count"><%= cartItemCount %></span>
-      </div>
     <% } else { %>
       <a href="/novosti">Novosti</a>
+      <a href="/">Tabela</a>
       <a href="/login">Prijava</a>
-      <a href="/fanshop">Fan Shop</a>
       <a href="/kontakt">Kontakt</a>
     <% } %>
   </div>
 
   <div class="hamburger-menu">&#9776;</div>
-  <div class="cart-sidebar">
-    <div class="cart-content">
-      <!-- Cart content will be loaded here dynamically -->
-    </div>
-    <form id="purchase-form" method="POST" action="/purchase-cart">
-      <button class="purchase-btn" type="submit">Kupi</button>
-    </form>
-    <button class="close-cart"><span class="close-icon">X</span></button>
-  </div>
+  
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/js/navbar.js"></script>
-<script>
-
-$(document).ready(function() {
-  // Handle purchase button click
-  $('.purchase-btn').click(function() {
-    $('#purchase-form').submit();
-  });
-});
-
-
-
-</script>

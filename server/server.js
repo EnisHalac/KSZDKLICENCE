@@ -8,6 +8,8 @@ const FanShopItem = require('./fanshop')
 const Purchase = require('./purchase');
 const crypto = require('crypto');
 const path = require('path');
+const Team = require('./team');
+const Match = require('./match');
 
 const sessionSecret = crypto.randomBytes(64).toString('hex');
 
@@ -115,9 +117,10 @@ app.get('/admin', isAdmin, async (req, res) => {
       return res.redirect('/home');
     }
     const { user, error, successMessage } = req.session;
+    const teams = await Team.find();
     const newsItems = await News.find().sort({ date: -1 });
     const fanShopItems = await FanShopItem.find();
-    res.render('admin', { user, error, successMessage,  newsItems, fanShopItems });
+    res.render('admin', { user, error, successMessage,  newsItems, fanShopItems , teams});
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
@@ -201,23 +204,153 @@ app.post('/delete-news/:id', (req, res) => {
     .catch(err => res.status(400).send(err));
 });
 
-app.post('/admin/fanshop/add', async (req, res) => {
+app.get('/teams', async (req, res) => {
   try {
-    const { name, category, price, imageUrl } = req.body;
-    const fanShopItem = new FanShopItem({
-      name,
-      category,
-      price,
-      imageUrl,
-    });
-
-    await fanShopItem.save();
-    res.redirect('/admin');
+    const teams = await Team.find();
+    const matches = await Match.find().populate('homeTeam awayTeam');
+    res.render('teams', { teams, matches });
   } catch (error) {
-    console.error('Error adding fan shop item:', error);
+    console.error('Error fetching teams or matches:', error);
     res.status(500).send('Internal Server Error');
   }
 });
+
+app.post('/admin/utakmica/add', async (req, res) => {
+  try {
+    const { domacin, gost, rezultat, kategorija } = req.body;
+
+    const homeTeam = await Team.findOne({ name: domacin });
+    const awayTeam = await Team.findOne({ name: gost });
+
+    const match = new Match({
+      homeTeam: homeTeam._id,
+      awayTeam: awayTeam._id,
+      result: rezultat,
+      category: kategorija,
+    });
+
+    // Save the match
+    await match.save();
+
+    // Parse result (assuming format like "2:1")
+    const [homeGoals, awayGoals] = rezultat.split(':').map(Number);
+
+    // Update home team stats
+    homeTeam.matchesPlayed += 1;
+    awayTeam.matchesPlayed += 1;
+
+    if (homeGoals > awayGoals) {
+      homeTeam.wins += 1;
+      homeTeam.points += 3;
+      awayTeam.losses += 1;
+    } else if (homeGoals < awayGoals) {
+      awayTeam.wins += 1;
+      awayTeam.points += 3;
+      homeTeam.losses += 1;
+    } else {
+      homeTeam.draws += 1;
+      awayTeam.draws += 1;
+      homeTeam.points += 1;
+      awayTeam.points += 1;
+    }
+
+    // Save the updated teams
+    await homeTeam.save();
+    await awayTeam.save();
+
+    res.redirect('/admin');
+  } catch (error) {
+    console.error('Error adding match:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+app.get('/kategorija/:category', async (req, res) => {
+  try {
+    const category = req.params.category;
+
+    // Fetch all teams first
+    const allTeams = await Team.find();
+
+    // Initialize an object to hold team stats
+    const teamStats = {};
+
+    // Set up initial stats for each team
+    allTeams.forEach(team => {
+      teamStats[team.name] = {
+        matchesPlayed: 0,
+        wins: 0,
+        draws: 0,
+        losses: 0,
+        points: 0,
+      };
+    });
+
+    // Fetch matches filtered by category
+    const matches = await Match.find({ category }).populate('homeTeam awayTeam');
+
+    // If no matches found, we can skip to rendering the standings
+    if (matches.length === 0) {
+      const standings = Object.keys(teamStats).map(team => ({
+        name: team,
+        ...teamStats[team],
+      }));
+
+      // Sort standings by points, then by wins (all will be 0)
+      standings.sort((a, b) => b.points - a.points || b.wins - a.wins);
+
+      return res.render('standings', { standings, category });
+    }
+
+    // Iterate through the matches to calculate stats
+    matches.forEach(match => {
+      const homeTeamName = match.homeTeam.name;
+      const awayTeamName = match.awayTeam.name;
+      const [homeGoals, awayGoals] = match.result.split(':').map(Number);
+
+      // Update home team stats
+      teamStats[homeTeamName].matchesPlayed += 1;
+
+      // Update away team stats
+      teamStats[awayTeamName].matchesPlayed += 1;
+
+      // Determine win/loss/draw
+      if (homeGoals > awayGoals) {
+        teamStats[homeTeamName].wins += 1;
+        teamStats[homeTeamName].points += 3;
+        teamStats[awayTeamName].losses += 1;
+      } else if (homeGoals < awayGoals) {
+        teamStats[awayTeamName].wins += 1;
+        teamStats[awayTeamName].points += 3;
+        teamStats[homeTeamName].losses += 1;
+      } else {
+        teamStats[homeTeamName].draws += 1;
+        teamStats[awayTeamName].draws += 1;
+        teamStats[homeTeamName].points += 1;
+        teamStats[awayTeamName].points += 1;
+      }
+    });
+
+    // Convert the stats object to an array
+    const standings = Object.keys(teamStats).map(team => ({
+      name: team,
+      ...teamStats[team],
+    }));
+
+    // Sort standings by points, then by wins
+    standings.sort((a, b) => b.points - a.points || b.wins - a.wins);
+
+    res.render('standings', { standings, category });
+  } catch (error) {
+    console.error('Error fetching standings:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+
 app.post('/admin/fanshop/delete/:id', async (req, res) => {
   try {
     const itemId = req.params.id;

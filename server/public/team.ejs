@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams and Matches</title>
+</head>
+<body>
+    <h1>Teams</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Team Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% teams.forEach(team => { %>
+                <tr>
+                    <td><%= team.name %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <h1>Matches</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Home Team</th>
+                <th>Away Team</th>
+                <th>Result</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% matches.forEach(match => { %>
+                <tr>
+                    <td><%= match.homeTeam.name %></td>
+                    <td><%= match.awayTeam.name %></td>
+                    <td><%= match.result %></td>
+                    <td><%= match.category %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
