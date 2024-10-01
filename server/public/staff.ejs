@@ -12,34 +12,30 @@
 </head>
 <body>
   <%- include('navbar') -%>
-    <div class="wrapper">
-      <h1 class="season">Sezona: 2023/2024</h1>
+  <div class="wrapper">
+    <h1 class="season">KOMESARI Sezona: 2024/2025</h1>
 
-      <div style="justify-content: center;" class="navigation-buttons-container">
-        <a href="#staff-group" class="navigation-button">STRUČNI ŠTAB</a>
-        <a href="#medical-group" class="navigation-button">MEDICINSKO OSOBLJE</a>
-        <a href="#economic-group" class="navigation-button">EKONOMAT</a>
-      </div>
-
-      <div class="team-container" id="team-container">
-
-        <div class="position-group" id="staff-group">
-          <h2 >STRUČNI ŠTAB</h2>
-        </div>
-
-        <div class="position-group" id="medical-group">
-          <h2 >MEDICINSKO OSOBLJE</h2>
-        </div>
-
-        <div class="position-group" id="economic-group">
-          <h2 >EKONOMAT</h2>
-        </div>
-
-      </div>
+    <div style="justify-content: center;" class="navigation-buttons-container">
+      <a href="#premier-league" class="navigation-button">PREMIER LIGA</a>
+      <a href="#a-sistem" class="navigation-button">A SISTEM</a>
     </div>
-    <%- include('footer') -%>
+
+    <div class="team-container" id="team-container">
+
+      <div class="position-group" id="premier-league">
+        <h2>PREMIER LIGA</h2>
+        <!-- Add staff or player details for Premier Liga here -->
+      </div>
+
+      <div class="position-group" id="a-sistem">
+        <h2>A SISTEM</h2>
+        <!-- Add staff or player details for A Sistem here -->
+      </div>
+
+    </div>
+  </div>
+  <%- include('footer') -%>
   <script src="js/staff.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 </body>
 </html>

@@ -14,9 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrQkTyH8DqfjJ6MTQY/ZD1J7aqXX42VgbiVB2Vf5Zp6s8FaM8YEXGyoja6IAC7rKJY1r+FbdXNco8hyZHg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <div class="background-container">
-    <img src="images/StadionCelik2.jpg" alt="Background Image" class="background-image">
-</div>
+ 
     <div class="wrapper">
       
           <div class="left">
@@ -101,24 +99,7 @@
         <div class="bottom-right">
           <h1>Obriši proizvod iz fan shopa</h1>
           <ul>
-            <% fanShopItems.forEach(item => { %>
-              <li class="fan-shop-item">
-                <div class="item-image">
-                  <img style="width: 50px; height: 50px; cursor: pointer;" src="<%= item.imageUrl %>" alt="<%= item.name %>" onclick="openModal('<%= item.imageUrl %>')">
-                </div>
-                <div class="fan-shop-header">
-                  <strong><%= item.name %></strong>
-                  <small>Veličina: <%= item.size %> | Cijena: <%= item.price %></small>
-                </div>
-                <div class="fan-shop-delete">
-                  <form action="/admin/fanshop/delete/<%= item._id %>" method="POST" class="delete-form">
-                    <button type="submit" class="delete-button">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </form>
-                </div>
-              </li>
-            <% }) %>
+            
           </ul>
         </div>
         

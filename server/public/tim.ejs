@@ -12,42 +12,80 @@
 </head>
 <body>
   <%- include('navbar') -%>
-    <div class="wrapper">
 
-      <h1 class="season">Sezona: 2023/2024</h1>
-      <div class="navigation-buttons-container">
-        <a href="#goalkeeper-group" class="navigation-button">GOLMANI</a>
-        <a href="#defense-group" class="navigation-button">ODBRANA</a>
-        <a href="#midfield-group" class="navigation-button">VEZNI RED</a>
-        <a href="#attack-group" class="navigation-button">NAPAD</a>
-        
+  <div class="wrapper">
+    <h1 class="season">PREDPIONIRI Sezona: 2024/2025</h1>
+
+    <!-- Navigation buttons for the categories -->
+    <div class="navigation-buttons-container">
+      <a href="#kengur-group" class="navigation-button">KENGUR</a>
+      <a href="#gradina-group" class="navigation-button">GRADINA</a>
+      <a href="#maglaj-group" class="navigation-button">MAGLAJ</a>
+      <a href="#abeceda-group" class="navigation-button">ABECEDA</a>
+      <a href="#celik-group" class="navigation-button">ČELIK</a>
+      <a href="#kakanj-group" class="navigation-button">KAKANJ</a>
+      <a href="#vukovi-group" class="navigation-button">VUKOVI</a>
+      <a href="#visoko-group" class="navigation-button">VISOKO</a>
+    </div>
+
+    <!-- Team container to hold different categories -->
+    <div class="team-container" id="team-container">
+
+      <!-- Kengur category -->
+      <div class="position-group" id="kengur-group">
+        <h2>KENGUR</h2>
+        <!-- Players for Kengur category can go here -->
       </div>
 
+      <!-- Gradina category -->
+      <div class="position-group" id="gradina-group">
+        <h2>GRADINA</h2>
+        <!-- Players for Gradina category can go here -->
+      </div>
 
-      <div class="team-container" id="team-container">
+      <!-- Maglaj category -->
+      <div class="position-group" id="maglaj-group">
+        <h2>MAGLAJ</h2>
+        <!-- Players for Maglaj category can go here -->
+      </div>
 
-        <div class="position-group" id="goalkeeper-group">
-          <h2 >GOLMANI</h2>
-        </div>
+      <!-- Abeceda category -->
+      <div class="position-group" id="abeceda-group">
+        <h2>ABECEDA</h2>
+        <!-- Players for Abeceda category can go here -->
+      </div>
 
-        <div class="position-group" id="defense-group">
-          <h2 >ODBRANA</h2>
-        </div>
+      <!-- Čelik category -->
+      <div class="position-group" id="celik-group">
+        <h2>ČELIK</h2>
+        <!-- Players for Čelik category can go here -->
+      </div>
 
-        <div class="position-group" id="midfield-group">
-          <h2 >VEZNI RED</h2>
-        </div>
+      <!-- Kakanj category -->
+      <div class="position-group" id="kakanj-group">
+        <h2>KAKANJ</h2>
+        <!-- Players for Kakanj category can go here -->
+      </div>
 
-        <div class="position-group" id="attack-group">
-          <h2>NAPAD</h2>
-        </div>
+      <!-- Vukovi category -->
+      <div class="position-group" id="vukovi-group">
+        <h2>VUKOVI</h2>
+        <!-- Players for Vukovi category can go here -->
+      </div>
+
+      <!-- Visoko category -->
+      <div class="position-group" id="visoko-group">
+        <h2>VISOKO</h2>
+        <!-- Players for Visoko category can go here -->
       </div>
 
     </div>
-    <%- include('footer') -%>
+
+  </div>
+
+  <%- include('footer') -%>
+
   <script src="js/prviTim.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
 </body>
 </html>

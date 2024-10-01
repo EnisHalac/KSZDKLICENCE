@@ -357,7 +357,27 @@ app.post('/delete-from-cart', (req, res) => {
     return res.json({ success: false });
   }
 });
+app.get('/pioniri', (req, res) => {
+  const { user, error } = req.session;
+  res.render('pioniri', { user, error }); // Ensure you have a 'pioniri.ejs' file in your views folder
+});
 
+// New route for Kadeti
+app.get('/kadeti', (req, res) => {
+  const { user, error } = req.session;
+  res.render('kadeti', { user, error }); // Ensure you have a 'kadeti.ejs' file in your views folder
+});
+
+// New route for Juniori
+app.get('/juniori', (req, res) => {
+  const { user, error } = req.session;
+  res.render('juniori', { user, error }); // Ensure you have a 'juniori.ejs' file in your views folder
+});
+
+app.get('/sudije', (req, res) => {
+  const { user, error } = req.session;
+  res.render('sudije', { user, error }); // Ensure you have a 'juniori.ejs' file in your views folder
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NK Čelik Team</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/tim.css">
+  <link rel="icon" type="image/x-icon" href="images/logo.png">
+</head>
+<body>
+  <%- include('navbar') -%>
+    <div class="wrapper">
+      <h1 class="season">SUDIJE Sezona: 2024/2025</h1>
+
+      <div style="justify-content: center;" class="navigation-buttons-container">
+        <a href="#premier-league" class="navigation-button">PREMIER LIGA</a>
+        <a href="#a-sistem" class="navigation-button">A SISTEM</a>
+        <a href="#liga-mladih" class="navigation-button">LIGA MLADIH</a>
+      </div>
+
+      <div class="team-container" id="team-container">
+
+        <div class="position-group" id="premier-league">
+          <h2>PREMIER LIGA</h2>
+          <!-- Premier Liga staff members will be dynamically added here -->
+        </div>
+
+        <div class="position-group" id="a-sistem">
+          <h2>A SISTEM</h2>
+          <!-- A Sistem staff members will be dynamically added here -->
+        </div>
+
+        <div class="position-group" id="liga-mladih">
+          <h2>LIGA MLADIH</h2>
+          <!-- Liga Mladih staff members will be dynamically added here -->
+        </div>
+
+      </div>
+    </div>
+    <%- include('footer') -%>
+  <script src="js/sudije.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</body>
+</html>
