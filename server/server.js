@@ -4,19 +4,22 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const UserController = require('./userController');
 const News = require('./news');
-const FanShopItem = require('./fanshop')
+const FanShopItem = require('./fanshop');
 const Purchase = require('./purchase');
 const crypto = require('crypto');
 const path = require('path');
 const Team = require('./team');
 const Match = require('./match');
 
+// Generate session secret for security
 const sessionSecret = crypto.randomBytes(64).toString('hex');
 
+// Express app initialization
 const app = express();
 const PORT = process.env.PORT || 3000;
 const serverUrl = process.env.SERVER_URL || 'http://localhost:3000';
 
+// Middleware configuration
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   secret: sessionSecret,
@@ -29,39 +32,68 @@ app.use((req, res, next) => {
   next();
 });
 
-
+// MongoDB connection
 const url = 'mongodb+srv://ahmed:ahmed123@nkcelik.qj8oewc.mongodb.net/?retryWrites=true&w=majority&appName=NKCelik';
-
 mongoose.connect(url)
   .then(() => console.log('Connected to MongoDB Atlas'))
   .catch(err => console.error('Error connecting to MongoDB Atlas', err));
 
+// Static files and view engine setup
 app.use(express.static('public'));
 app.use(express.json());
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'public'));
 
+// User authentication routes
 app.post('/register', UserController.register);
 app.post('/login', UserController.login);
 app.get('/logout', UserController.logout);
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'public'));
-
+// Home route with fetching matches for both men's and women's categories
 app.get('/home', async (req, res) => {
   try {
     const { user } = req.session;
     const newsArticles = await News.find().sort({ date: -1 }).limit(3);
     const newsArticlesSmall = await News.find().sort({ date: -1 }).skip(3).limit(4);
     const firstFourFanShopItems = await FanShopItem.find().limit(4);
-    res.render('home', { newsArticles, user, newsArticlesSmall, firstFourFanShopItems });
+
+    // Fetch men's categories matches
+    const pioniriMatches = await Team.find({ category: 'pioniri' });
+    const predpioniriMatches = await Team.find({ category: 'predpioniri' });
+    const kadetiMatches = await Team.find({ category: 'kadeti' });
+    const junioriMatches = await Team.find({ category: 'juniori' });
+
+    // Fetch women's categories matches
+    const pionirkeMatches = await Team.find({ category: 'pionirke' });
+    const predpionirkeMatches = await Team.find({ category: 'predpionirke' });
+    const kadetkinjeMatches = await Team.find({ category: 'kadetkinje' });
+    const juniorkeMatches = await Team.find({ category: 'juniorke' });
+
+    res.render('home', {
+      newsArticles,
+      user,
+      newsArticlesSmall,
+      firstFourFanShopItems,
+      pioniriMatches,
+      predpioniriMatches,
+      kadetiMatches,
+      junioriMatches,
+      pionirkeMatches,
+      predpionirkeMatches,
+      kadetkinjeMatches,
+      juniorkeMatches
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
   }
 });
 
+// Tim and staff routes
 app.get('/tim', (req, res) => res.render('tim', { user: req.session.user }));
 app.get('/staff', (req, res) => res.render('staff', { user: req.session.user }));
 
+// News routes
 app.get('/novosti', async (req, res) => {
   try {
     const newsArticles = await News.find().sort({ date: -1 }).limit(10);
@@ -70,15 +102,13 @@ app.get('/novosti', async (req, res) => {
     console.error(err);
     res.status(500).send('Server Error');
   }
-
 });
+
 app.get('/novosti/:title/:id', async (req, res) => {
   try {
     const newsArticle = await News.findById(req.params.id);
-    const user = req.session.user; 
-    if (!newsArticle) {
-      return res.status(404).send('News article not found');
-    }
+    const user = req.session.user;
+    if (!newsArticle) return res.status(404).send('News article not found');
     if (req.params.title !== newsArticle.title.toLowerCase().replace(/ /g, '-')) {
       return res.redirect(`/novosti/${newsArticle.title.toLowerCase().replace(/ /g, '-')}/${newsArticle._id}`);
     }
@@ -89,138 +119,55 @@ app.get('/novosti/:title/:id', async (req, res) => {
   }
 });
 
+// Login route
 app.get('/login', (req, res) => {
   const { user, error } = req.session;
   res.render('login', { user, error });
 });
 
+// Fanshop route
 app.get('/fanshop', async (req, res) => {
   const { user, error } = req.session;
   const firstFourFanShopItems = await FanShopItem.find().sort({ _id: 1 }).limit(4);
-  res.render('fanshop', { user, error , firstFourFanShopItems});
+  res.render('fanshop', { user, error, firstFourFanShopItems });
 });
 
-
+// Admin route and access control
 const isAdmin = (req, res, next) => {
-  if (req.session.user && req.session.user.type === 'admin') {
-    next();
-  } else {
-    res.redirect('/home'); 
-  }
+  if (req.session.user && req.session.user.type === 'admin') next();
+  else res.redirect('/home');
 };
-
-
 
 app.get('/admin', isAdmin, async (req, res) => {
   try {
-    if (!req.session.user || req.session.user.type !== 'admin') {
-      return res.redirect('/home');
-    }
     const { user, error, successMessage } = req.session;
     const teams = await Team.find();
     const newsItems = await News.find().sort({ date: -1 });
     const fanShopItems = await FanShopItem.find();
-    res.render('admin', { user, error, successMessage,  newsItems, fanShopItems , teams});
+    const matches = await Match.find().populate('homeTeam awayTeam');
+    res.render('admin', { user, error, successMessage, newsItems, fanShopItems, teams, matches });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
   }
 });
 
-app.get('/profil', async (req, res) => {
-  try {
-    const { user, error, successMessage } = req.session;
-    req.session.successMessage = null;
-
-    if (!user) {
-      return res.redirect('/login');
-    }
-
-    const purchases = await Purchase.find({ userId: user._id });
-
-    const itemCounts = {};
-    for (const purchase of purchases) {
-      const itemId = purchase.itemId;
-      const quantity = parseInt(purchase.quantity);
-      const productCategory = purchase.productCategory; // Parse quantity as an integer
-
-      // Fetch the FanShopItem using itemId
-      const item = await FanShopItem.findById(itemId);
-      console.log(productCategory)
-      if (item) {
-        if (itemCounts[itemId]) {
-          itemCounts[itemId].count += quantity; // Increase count by quantity
-        } else {
-          itemCounts[itemId] = {
-            name: item.name, // Access the name property of the item
-            imageUrl: item.imageUrl, // Access the imageUrl property of the item
-            count: quantity, // Set count to quantity,
-            productCategory: productCategory
-          };
-        }
-      } else {
-        console.error(`Item not found for itemId: ${itemId}`);
-      }
-    }
-
-    // Map the purchased items to include count and imageUrl
-    const purchasedItems = Object.values(itemCounts);
-
-    // Pass the purchased items and user data to the profile page
-    res.render('profil', { user, error, successMessage, purchasedItems, cartItemCount: req.session.cart ? req.session.cart.length : 0 });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-
-
-app.get('/kontakt', (req, res) => {
-  const { user, error, successMessage } = req.session;
-  res.render('kontakt', { user, error, successMessage });
-});
-
-
-
-app.post('/admin', (req, res) => {
-  const { title, date, content, imageUrl } = req.body;
-  
-  const newsItem = new News({
-    title,
-    date: new Date(date),
-    content,
-    imageUrl
-  });
-
-  newsItem.save()
-    .then(() => res.redirect('/admin'))
-    .catch(err => res.status(400).send(err));
-});
-
-app.post('/delete-news/:id', (req, res) => {
-  News.findByIdAndDelete(req.params.id)
-    .then(() => res.redirect('/admin'))
-    .catch(err => res.status(400).send(err));
-});
-
-app.get('/teams', async (req, res) => {
-  try {
-    const teams = await Team.find();
-    const matches = await Match.find().populate('homeTeam awayTeam');
-    res.render('teams', { teams, matches });
-  } catch (error) {
-    console.error('Error fetching teams or matches:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
+// Admin: Add new match and update team stats
 app.post('/admin/utakmica/add', async (req, res) => {
   try {
     const { domacin, gost, rezultat, kategorija } = req.body;
 
-    const homeTeam = await Team.findOne({ name: domacin });
-    const awayTeam = await Team.findOne({ name: gost });
+    // Find home and away teams by name and category
+    const homeTeam = await Team.findOne({ name: domacin, category: kategorija });
+    const awayTeam = await Team.findOne({ name: gost, category: kategorija });
+
+    if (!homeTeam || !awayTeam) {
+      return res.status(400).send('One or both teams not found in the specified category.');
+    }
+
+    const [homeGoals, awayGoals] = rezultat.split(':').map(Number);
+
+    if (homeGoals === awayGoals) return res.status(400).send('Draw results are not allowed.');
 
     const match = new Match({
       homeTeam: homeTeam._id,
@@ -229,13 +176,8 @@ app.post('/admin/utakmica/add', async (req, res) => {
       category: kategorija,
     });
 
-    // Save the match
     await match.save();
 
-    // Parse result (assuming format like "2:1")
-    const [homeGoals, awayGoals] = rezultat.split(':').map(Number);
-
-    // Update home team stats
     homeTeam.matchesPlayed += 1;
     awayTeam.matchesPlayed += 1;
 
@@ -243,18 +185,12 @@ app.post('/admin/utakmica/add', async (req, res) => {
       homeTeam.wins += 1;
       homeTeam.points += 3;
       awayTeam.losses += 1;
-    } else if (homeGoals < awayGoals) {
+    } else {
       awayTeam.wins += 1;
       awayTeam.points += 3;
       homeTeam.losses += 1;
-    } else {
-      homeTeam.draws += 1;
-      awayTeam.draws += 1;
-      homeTeam.points += 1;
-      awayTeam.points += 1;
     }
 
-    // Save the updated teams
     await homeTeam.save();
     await awayTeam.save();
 
@@ -266,17 +202,71 @@ app.post('/admin/utakmica/add', async (req, res) => {
 });
 
 
+// Admin: Delete news and matches
+app.post('/delete-news/:id', (req, res) => {
+  News.findByIdAndDelete(req.params.id)
+    .then(() => res.redirect('/admin'))
+    .catch(err => res.status(400).send(err));
+});
+
+app.post('/delete-match/:id', async (req, res) => {
+  try {
+    // Find the match to delete, including team references
+    const match = await Match.findById(req.params.id).populate('homeTeam awayTeam');
+
+    if (!match) {
+      return res.status(404).send('Match not found');
+    }
+
+    const homeTeam = match.homeTeam;
+    const awayTeam = match.awayTeam;
+
+    // Store the match result for adjusting points
+    const [homeGoals, awayGoals] = match.result.split(':').map(Number);
+
+    // Update team statistics
+    homeTeam.matchesPlayed -= 1;
+    awayTeam.matchesPlayed -= 1;
+
+    // Adjust wins, losses, and points
+    if (homeGoals > awayGoals) {
+      homeTeam.wins -= 1;
+      awayTeam.losses -= 1;
+      homeTeam.points -= 3; // Deduct 3 points for the home team
+    } else if (homeGoals < awayGoals) {
+      awayTeam.wins -= 1;
+      homeTeam.losses -= 1;
+      awayTeam.points -= 3; // Deduct 3 points for the away team
+    } else {
+      // If it was a draw, both teams lose a point
+      homeTeam.draws -= 1;
+      awayTeam.draws -= 1;
+      homeTeam.points -= 1; // Deduct 1 point for home team
+      awayTeam.points -= 1; // Deduct 1 point for away team
+    }
+
+    // Save the updated team statistics
+    await homeTeam.save();
+    await awayTeam.save();
+
+    // Now delete the match
+    await Match.findByIdAndDelete(req.params.id);
+    res.redirect('/admin');
+  } catch (error) {
+    console.error('Error deleting match:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+// Standings route
 app.get('/kategorija/:category', async (req, res) => {
   try {
     const category = req.params.category;
-
-    // Fetch all teams first
     const allTeams = await Team.find();
-
-    // Initialize an object to hold team stats
     const teamStats = {};
 
-    // Set up initial stats for each team
     allTeams.forEach(team => {
       teamStats[team.name] = {
         matchesPlayed: 0,
@@ -287,35 +277,16 @@ app.get('/kategorija/:category', async (req, res) => {
       };
     });
 
-    // Fetch matches filtered by category
     const matches = await Match.find({ category }).populate('homeTeam awayTeam');
 
-    // If no matches found, we can skip to rendering the standings
-    if (matches.length === 0) {
-      const standings = Object.keys(teamStats).map(team => ({
-        name: team,
-        ...teamStats[team],
-      }));
-
-      // Sort standings by points, then by wins (all will be 0)
-      standings.sort((a, b) => b.points - a.points || b.wins - a.wins);
-
-      return res.render('standings', { standings, category });
-    }
-
-    // Iterate through the matches to calculate stats
     matches.forEach(match => {
       const homeTeamName = match.homeTeam.name;
       const awayTeamName = match.awayTeam.name;
       const [homeGoals, awayGoals] = match.result.split(':').map(Number);
 
-      // Update home team stats
       teamStats[homeTeamName].matchesPlayed += 1;
-
-      // Update away team stats
       teamStats[awayTeamName].matchesPlayed += 1;
 
-      // Determine win/loss/draw
       if (homeGoals > awayGoals) {
         teamStats[homeTeamName].wins += 1;
         teamStats[homeTeamName].points += 3;
@@ -324,195 +295,17 @@ app.get('/kategorija/:category', async (req, res) => {
         teamStats[awayTeamName].wins += 1;
         teamStats[awayTeamName].points += 3;
         teamStats[homeTeamName].losses += 1;
-      } else {
-        teamStats[homeTeamName].draws += 1;
-        teamStats[awayTeamName].draws += 1;
-        teamStats[homeTeamName].points += 1;
-        teamStats[awayTeamName].points += 1;
       }
     });
 
-    // Convert the stats object to an array
-    const standings = Object.keys(teamStats).map(team => ({
-      name: team,
-      ...teamStats[team],
-    }));
-
-    // Sort standings by points, then by wins
-    standings.sort((a, b) => b.points - a.points || b.wins - a.wins);
-
-    res.render('standings', { standings, category });
-  } catch (error) {
-    console.error('Error fetching standings:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-
-
-
-app.post('/admin/fanshop/delete/:id', async (req, res) => {
-  try {
-    const itemId = req.params.id;
-
-    const item = await FanShopItem.findById(itemId);
-
-    if (!item) {
-      return res.status(404).send('Fan shop item not found');
-    }
-    if (item.quantity <= 0) {
-      await FanShopItem.findByIdAndDelete(itemId);
-    } else {
-      await item.save(); 
-    }
-
-    res.redirect('/admin');
-  } catch (error) {
-    console.error('Error deleting fan shop item:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-
-app.post('/purchase/:itemId', async (req, res) => {
-  try {
-      const userId = req.session.user._id;
-      const itemId = req.params.itemId;
-      const purchase = new Purchase({ userId, itemId });
-      await purchase.save();
-      res.redirect('/profil');
+    res.render('kategorija', { teamStats, user: req.session.user, category });
   } catch (err) {
-      console.error(err);
-      res.status(500).send('Server Error');
-  }
-});
-
-
-app.get('/fanshop/:name/:id', async (req, res) => {
-  try {
-    const { user, error, successMessage } = req.session;
-    const fanshopItem = await FanShopItem.findById(req.params.id);
-    if (!fanshopItem) {
-      return res.status(404).send('Item not found');
-    }
-    res.render('fanshopPurchase', { fanshopItem, user, error, successMessage });
-  } catch (error) {
+    console.error(err);
     res.status(500).send('Server Error');
   }
 });
 
-
-app.post('/add-to-cart', (req, res) => {
-  if (!req.session.cart) {
-      req.session.cart = [];
-  }
-
-  const { id, name, price, imageUrl, quantity, size, productCategory } = req.body; 
-  const item = { _id: id, name, price, imageUrl,quantity, size, productCategory }; 
-  req.session.cart.push(item);
-
-  res.json({ success: true, cartItemCount: req.session.cart.length });
-});
-
-app.post('/purchase-cart', async (req, res) => {
-  try {
-      const userId = req.session.user._id;
-      const cart = req.session.cart || [];
-
-      if (cart.length === 0) {
-          return res.status(400).send('Cart is empty');
-      }
-      console.log(cart)
-      const purchasePromises = cart.map(item => {
-          return new Purchase({
-              userId,
-              itemId: item._id,  
-              quantity: item.quantity,
-              productCategory: item.productCategory 
-          }).save();
-      });
-
-      await Promise.all(purchasePromises);
-
-      req.session.cart = [];
-
-      res.redirect('/profil');
-  } catch (err) {
-      console.error(err);
-      res.status(500).send('Server Error');
-  }
-});
-
-
-
-app.get('/cart-items', (req, res) => {
-  const cart = req.session.cart || [];
-  res.json({ cart });
-});
-
-
-
-app.get('/sviartikli', async (req, res) => {
-  const { categories } = req.query;
-  const { user, error, successMessage } = req.session;
-  let filter = {};
-  if (categories) {
-      const categoryArray = categories.split(',');
-      filter = { category: { $in: categoryArray } };
-  }
-
-  try {
-      const allCategories = await FanShopItem.distinct('category');
-      const fanShopItems = await FanShopItem.find(filter);
-
-      res.render('sviartikli', {
-          fanShopItems,
-          allCategories,
-          user,
-          error,
-          successMessage
-      });
-  } catch (error) {
-      console.error(error);
-      res.status(500).send('Internal Server Error');
-  }
-});
-app.post('/delete-from-cart', (req, res) => {
-  if (!req.session.cart) {
-    return res.json({ success: false });
-  }
-
-  const index = req.body.index;
-  if (index !== undefined && index >= 0 && index < req.session.cart.length) {
-    req.session.cart.splice(index, 1);
-    return res.json({ success: true });
-  } else {
-    return res.json({ success: false });
-  }
-});
-app.get('/pioniri', (req, res) => {
-  const { user, error } = req.session;
-  res.render('pioniri', { user, error }); // Ensure you have a 'pioniri.ejs' file in your views folder
-});
-
-// New route for Kadeti
-app.get('/kadeti', (req, res) => {
-  const { user, error } = req.session;
-  res.render('kadeti', { user, error }); // Ensure you have a 'kadeti.ejs' file in your views folder
-});
-
-// New route for Juniori
-app.get('/juniori', (req, res) => {
-  const { user, error } = req.session;
-  res.render('juniori', { user, error }); // Ensure you have a 'juniori.ejs' file in your views folder
-});
-
-app.get('/sudije', (req, res) => {
-  const { user, error } = req.session;
-  res.render('sudije', { user, error }); // Ensure you have a 'juniori.ejs' file in your views folder
-});
-
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`Home URL: ${serverUrl}/home`);
+  console.log(`Server running at ${serverUrl}`);
 });
