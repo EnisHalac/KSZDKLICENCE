@@ -152,7 +152,6 @@ app.get('/admin', isAdmin, async (req, res) => {
   }
 });
 
-// Admin: Add new match and update team stats
 app.post('/admin/utakmica/add', async (req, res) => {
   try {
     const { domacin, gost, rezultat, kategorija } = req.body;
@@ -178,8 +177,14 @@ app.post('/admin/utakmica/add', async (req, res) => {
 
     await match.save();
 
+    // Update the teams' statistics
     homeTeam.matchesPlayed += 1;
     awayTeam.matchesPlayed += 1;
+
+    homeTeam.scoredGoals += homeGoals; // Update scored goals
+    awayTeam.scoredGoals += awayGoals; // Update scored goals
+    homeTeam.concededGoals += awayGoals; // Update conceded goals
+    awayTeam.concededGoals += homeGoals; // Update conceded goals
 
     if (homeGoals > awayGoals) {
       homeTeam.wins += 1;
@@ -191,6 +196,10 @@ app.post('/admin/utakmica/add', async (req, res) => {
       homeTeam.losses += 1;
     }
 
+    // Calculate goal difference
+    homeTeam.goalDifference = homeTeam.scoredGoals - homeTeam.concededGoals;
+    awayTeam.goalDifference = awayTeam.scoredGoals - awayTeam.concededGoals;
+
     await homeTeam.save();
     await awayTeam.save();
 
@@ -200,6 +209,7 @@ app.post('/admin/utakmica/add', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
 
 
 // Admin: Delete news and matches
@@ -244,6 +254,16 @@ app.post('/delete-match/:id', async (req, res) => {
       homeTeam.points -= 1; // Deduct 1 point for home team
       awayTeam.points -= 1; // Deduct 1 point for away team
     }
+
+     // Adjust scored and conceded goals
+     homeTeam.scoredGoals -= homeGoals;
+     homeTeam.concededGoals -= awayGoals;
+     awayTeam.scoredGoals -= awayGoals;
+     awayTeam.concededGoals -= homeGoals;
+ 
+     // Recalculate goal difference
+     homeTeam.goalDifference = homeTeam.scoredGoals - homeTeam.concededGoals;
+     awayTeam.goalDifference = awayTeam.scoredGoals - awayTeam.concededGoals;
 
     // Save the updated team statistics
     await homeTeam.save();
