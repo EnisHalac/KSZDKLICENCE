@@ -14,125 +14,156 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrQkTyH8DqfjJ6MTQY/ZD1J7aqXX42VgbiVB2Vf5Zp6s8FaM8YEXGyoja6IAC7rKJY1r+FbdXNco8hyZHg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <div class="background-container">
-    <img src="images/StadionCelik2.jpg" alt="Background Image" class="background-image">
-</div>
     <div class="wrapper">
-      
-          <div class="left">
+        <div class="left">
             <h1>Dodaj vijesti</h1>
             <form action="/admin" method="POST">
-              <div>
-                <label for="title">Naslov</label>
-                <input type="text" id="title" placeholder="Naslov vijesti" name="title" required>
-              </div>
-              <div>
-                  <label for="date">Datum</label>
-                  <input type="date" id="date"placeholder="Unesi datum" name="date" required>
-              </div>
-              <div>
-                <label for="content">Sadrzaj</label>
-                <textarea id="content" placeholder="Unesi sadrzaj vijesti" name="content" required></textarea>
-              </div>
-              <div>
-                <label for="imageUrl">Slika</label>
-                <input type="text" id="imageUrl" placeholder="Unesi link slike" name="imageUrl" required>
-              </div>
-              <button class="add-button" type="submit">Dodaj</button>
+                <div>
+                    <label for="title">Naslov</label>
+                    <input type="text" id="title" placeholder="Naslov vijesti" name="title" required>
+                </div>
+                <div>
+                    <label for="date">Datum</label>
+                    <input type="date" id="date" placeholder="Unesi datum" name="date" required>
+                </div>
+                <div>
+                    <label for="content">Sadrzaj</label>
+                    <textarea id="content" placeholder="Unesi sadrzaj vijesti" name="content" required></textarea>
+                </div>
+                <div>
+                    <label for="imageUrl">Slika</label>
+                    <input type="text" id="imageUrl" placeholder="Unesi link slike" name="imageUrl" required>
+                </div>
+                <button class="add-button" type="submit">Dodaj</button>
             </form>
-          </div>
-          <div class="right">
-              <h1>Obrisi vijesti</h1>
-              <ul>
-                <% newsItems.forEach(news => { %>
-                  <li class="news-item">
-                    
-                      <div class="news-header">
-                          <strong><%= news.title %></strong>
-                          <small><%= news.content.split(" ").slice(0, 10).join(" ") %>...</small>
-                      </div>
-                      <div class="date_delete">
-                      <small class="news-date"><%= new Date(news.date).toLocaleDateString() %></small>
-                      <form action="/delete-news/<%= news._id %>" method="POST" class="delete-form">
-                        <button type="submit" class="delete-button">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                      </form>
-                      </div>
-                  
-                  </li>
-                <% }) %>
-              </ul>
-            </div>
-        
+        </div>
 
-            <div class="bottom-left">
-              <h1>Dodaj utakmicu</h1>
-              <form action="/admin/utakmica/add" method="POST">
-                <div>
+        <div class="right">
+            <h1>Obrisi vijesti</h1>
+            <ul>
+                <% newsItems.forEach(news => { %>
+                    <li class="news-item">
+                        <div class="news-header">
+                            <strong><%= news.title %></strong>
+                            <small><%= news.content.split(" ").slice(0, 10).join(" ") %>...</small>
+                        </div>
+                        <div class="date_delete">
+                            <small class="news-date"><%= new Date(news.date).toLocaleDateString() %></small>
+                            <form action="/delete-news/<%= news._id %>" method="POST" class="delete-form">
+                                <button type="submit" class="delete-button">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+
+        <div class="bottom-left">
+          <h1>Dodaj utakmicu</h1>
+          <form action="/admin/utakmica/add" method="POST">
+              <div>
                   <label for="domacin">Domaćin</label>
-                  <select id="domacin" name="domacin" required>
-                    <% teams.forEach(team => { %>
-                      <option value="<%= team.name %>"><%= team.name %></option>
-                    <% }) %>
+                  <select id="domacin" name="domacin" required onchange="updateCategory()">
+                      <% 
+                          const categoryOrder = ['predpioniri', 'pioniri', 'kadeti', 'juniori', 'predpionirke', 'pionirke', 'kadetkinje', 'juniorke'];
+                          const sortedTeams = teams.sort((a, b) => categoryOrder.indexOf(a.category) - categoryOrder.indexOf(b.category));
+      
+                          sortedTeams.forEach(team => { 
+                      %>
+                          <option value="<%= team.name %>" data-category="<%= team.category %>"><%= team.category %>: <%= team.name %></option>
+                      <% }); %>
                   </select>
-                </div>
-            
-                <div>
+              </div>
+              <div>
                   <label for="gost">Gost</label>
-                  <select id="gost" name="gost" required>
-                    <% teams.forEach(team => { %>
-                      <option value="<%= team.name %>"><%= team.name %></option>
-                    <% }) %>
+                  <select id="gost" name="gost" required onchange="updateCategory()">
+                      <% 
+                          sortedTeams.forEach(team => { 
+                      %>
+                          <option value="<%= team.name %>" data-category="<%= team.category %>"><%= team.category %>: <%= team.name %></option>
+                      <% }); %>
                   </select>
-                </div>
-            
-                <div>
+              </div>
+              <div>
                   <label for="rezultat">Rezultat</label>
                   <input type="text" id="rezultat" placeholder="0:0" name="rezultat" required>
-                </div>
-            
-                <div>
+              </div>
+              <div>
                   <label for="kategorija">Kategorija</label>
-                  <select id="kategorija" name="kategorija" required>
-                    <option value="pioniri">Pioniri</option>
-                    <option value="predpioniri">Predpioniri</option>
-                    <option value="kadeti">Kadeti</option>
-                    <option value="juniori">Juniori</option>
-                  </select>
-                </div>
-            
-                <button class="add-button" type="submit">Dodaj utakmicu</button>
-              </form>
-            </div>
-            
+                  <input type="text" id="kategorija" name="kategorija" readonly>
+              </div>
+              <button class="add-button" type="submit">Dodaj utakmicu</button>
+          </form>
+      </div>
+      
+      <script>
+          // Automatically set the category based on the selected team
+          function updateCategory() {
+              const domacinSelect = document.getElementById('domacin');
+              const gostSelect = document.getElementById('gost');
+              const kategorijaInput = document.getElementById('kategorija');
+      
+              const selectedDomacin = domacinSelect.options[domacinSelect.selectedIndex].getAttribute('data-category');
+              const selectedGost = gostSelect.options[gostSelect.selectedIndex].getAttribute('data-category');
+      
+              // Assuming both teams are from the same category
+              if (selectedDomacin === selectedGost) {
+                  kategorijaInput.value = selectedDomacin;
+              } else {
+                  kategorijaInput.value = 'Mixed categories'; // You can handle this case as needed
+              }
+          }
+      
+          // Initialize the category on page load
+          window.onload = updateCategory;
+      </script>
+      
+
         <div class="bottom-right">
-        
+            <h1>Obrisi utakmicu</h1>
+            <ul>
+                <% matches.forEach(match => { %>
+                    <li class="match-item">
+                        <div class="match-header">
+                            <strong><%= match.homeTeam.name %> vs <%= match.awayTeam.name %></strong>
+                            <small><%= match.result %></small>
+                        </div>
+                        <div class="date_delete">
+                            <small class="match-category"><%= match.category %></small>
+                            <form action="/delete-match/<%= match._id %>" method="POST" class="delete-form">
+                                <button type="submit" class="delete-button">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
         </div>
-        
     </div>
+
     <div id="myModal" class="modal">
-      <span class="close">&times;</span>
-      <img id="modalImg" class="modal-content" src="" alt="Popup Image">
+        <span class="close">&times;</span>
+        <img id="modalImg" class="modal-content" src="" alt="Popup Image">
     </div>
-    
 
-<%- include('footer') -%>
+    <%- include('footer') -%>
 
-<script>
-  var modal = document.getElementById("myModal");
-  var modalImg = document.getElementById("modalImg");
+    <script>
+        var modal = document.getElementById("myModal");
+        var modalImg = document.getElementById("modalImg");
 
-  function openModal(imageUrl) {
-    modal.style.display = "block";
-    modalImg.src = imageUrl;
-  }
+        function openModal(imageUrl) {
+            modal.style.display = "block";
+            modalImg.src = imageUrl;
+        }
 
-  var span = document.getElementsByClassName("close")[0];
-
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
-</script>
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    </script>
 </body>
 </html>

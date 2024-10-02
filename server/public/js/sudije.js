@@ -4,13 +4,15 @@ const staff = [
   { firstName: "Adis", lastName: "Bešić", position: "Premier Liga", image: "images/staff/Adis-Besic.png" },
   { firstName: "Izudin", lastName: "Kamberović", position: "Premier Liga", image: "images/staff/Izudin-Kamberovic.png" },
   { firstName: "Adi", lastName: "Bambur", position: "Premier Liga", image: "images/staff/Adi-Bambur.png" },
-  
+
   // A Sistem
   { firstName: "Albin", lastName: "Mašić", position: "A Sistem", image: "images/staff/Albin-Masic.png" },
-  
-  // Ekonomat
-  { firstName: "Adis", lastName: "Bešić", position: "A Sistem", image: "images/staff/Adis-Besic.png" },
-  { firstName: "Izudin", lastName: "Kamberović", position: "A Sistem", image: "images/staff/Izudin-Kamberovic.png" }
+
+  // Liga Mladih
+  { firstName: "Dario", lastName: "Damjanović", position: "Liga Mladih", image: "images/staff/Dario-Damjanovic.png" },
+  { firstName: "Adis", lastName: "Bešić", position: "Liga Mladih", image: "images/staff/Adis-Besic.png" },
+  { firstName: "Izudin", lastName: "Kamberović", position: "Liga Mladih", image: "images/staff/Izudin-Kamberovic.png" },
+  { firstName: "Adi", lastName: "Bambur", position: "Liga Mladih", image: "images/staff/Adi-Bambur.png" },
 ];
 
 function createStaffBox(staffMember) {
@@ -43,6 +45,7 @@ function createStaffBox(staffMember) {
 function initTeamPage() {
   const premierLeagueGroup = document.getElementById("premier-league");
   const aSistemGroup = document.getElementById("a-sistem");
+  const ligaMladihGroup = document.getElementById("liga-mladih");
 
   staff.forEach(staffMember => {
     const staffBox = createStaffBox(staffMember);
@@ -50,6 +53,8 @@ function initTeamPage() {
       premierLeagueGroup.appendChild(staffBox);
     } else if (staffMember.position === "A Sistem") {
       aSistemGroup.appendChild(staffBox);
+    } else if (staffMember.position === "Liga Mladih") {
+      ligaMladihGroup.appendChild(staffBox);
     }
   });
 }
