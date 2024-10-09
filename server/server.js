@@ -69,6 +69,8 @@ app.get('/home', async (req, res) => {
     const kadetkinjeMatches = await Team.find({ category: 'kadetkinje' });
     const juniorkeMatches = await Team.find({ category: 'juniorke' });
 
+    const senioriMatches = await Team.find({ category: 'seniori' });
+
     res.render('home', {
       newsArticles,
       user,
@@ -81,7 +83,8 @@ app.get('/home', async (req, res) => {
       pionirkeMatches,
       predpionirkeMatches,
       kadetkinjeMatches,
-      juniorkeMatches
+      juniorkeMatches,
+      senioriMatches
     });
   } catch (err) {
     console.error(err);
@@ -281,44 +284,36 @@ app.post('/delete-match/:id', async (req, res) => {
 
 
 // Standings route
-app.get('/kategorija/:category', async (req, res) => {
+app.get('/tabele', async (req, res) => {
   try {
-    const category = req.params.category;
-    const allTeams = await Team.find();
-    const teamStats = {};
+    const { user } = req.session;
 
-    allTeams.forEach(team => {
-      teamStats[team.name] = {
-        matchesPlayed: 0,
-        wins: 0,
-        draws: 0,
-        losses: 0,
-        points: 0,
-      };
+    // Fetch men's categories matches
+    const pioniriMatches = await Team.find({ category: 'pioniri' });
+    const predpioniriMatches = await Team.find({ category: 'predpioniri' });
+    const kadetiMatches = await Team.find({ category: 'kadeti' });
+    const junioriMatches = await Team.find({ category: 'juniori' });
+
+    // Fetch women's categories matches
+    const pionirkeMatches = await Team.find({ category: 'pionirke' });
+    const predpionirkeMatches = await Team.find({ category: 'predpionirke' });
+    const kadetkinjeMatches = await Team.find({ category: 'kadetkinje' });
+    const juniorkeMatches = await Team.find({ category: 'juniorke' });
+
+    const senioriMatches = await Team.find({ category: 'seniori' });
+
+    res.render('standings', {
+      user,
+      pioniriMatches,
+      predpioniriMatches,
+      kadetiMatches,
+      junioriMatches,
+      pionirkeMatches,
+      predpionirkeMatches,
+      kadetkinjeMatches,
+      juniorkeMatches,
+      senioriMatches
     });
-
-    const matches = await Match.find({ category }).populate('homeTeam awayTeam');
-
-    matches.forEach(match => {
-      const homeTeamName = match.homeTeam.name;
-      const awayTeamName = match.awayTeam.name;
-      const [homeGoals, awayGoals] = match.result.split(':').map(Number);
-
-      teamStats[homeTeamName].matchesPlayed += 1;
-      teamStats[awayTeamName].matchesPlayed += 1;
-
-      if (homeGoals > awayGoals) {
-        teamStats[homeTeamName].wins += 1;
-        teamStats[homeTeamName].points += 3;
-        teamStats[awayTeamName].losses += 1;
-      } else if (homeGoals < awayGoals) {
-        teamStats[awayTeamName].wins += 1;
-        teamStats[awayTeamName].points += 3;
-        teamStats[homeTeamName].losses += 1;
-      }
-    });
-
-    res.render('kategorija', { teamStats, user: req.session.user, category });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
