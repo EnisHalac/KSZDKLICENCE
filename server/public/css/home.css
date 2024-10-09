@@ -410,3 +410,18 @@ button:hover {
         left: 50%;
     }
 }
+
+.gender-selection {
+    display: flex;
+    justify-content: center; /* Centers the buttons horizontally */
+    align-items: center; /* Centers the buttons vertically */
+    gap: 10px; /* Adds space between the buttons */
+    margin: 20px 0; /* Adjusts spacing around the gender selection */
+}
+
+.grid-container.seniori {
+    display: flex; /* Koristimo flexbox za centriranje */
+    justify-content: center; /* Horizontalno centriranje */
+    align-items: center; /* Vertikalno centriranje ako je potrebno */
+    margin: 20px 0; /* Malo prostora oko kontejnera */
+}

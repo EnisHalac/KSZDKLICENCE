@@ -11,7 +11,7 @@ const teamSchema = new mongoose.Schema({
   points: { type: Number, default: 0 },
   category: { 
     type: String, 
-    enum: ['pioniri', 'predpioniri', 'kadeti', 'juniori','predpionirke','pionirke','kadetkinje','juniorke'], 
+    enum: ['pioniri', 'predpioniri', 'kadeti', 'juniori','predpionirke','pionirke','kadetkinje','juniorke', 'seniori'], 
     required: true 
   }
 });

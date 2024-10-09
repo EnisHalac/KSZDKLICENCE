@@ -9,35 +9,312 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="icon" type="image/x-icon" href="images/logo.png">
 </head>
-<h1>Standings for <%= category %></h1>
-<table>
-  <thead>
-    <tr>
-      <th>Team</th>
-      <th>Matches Played</th>
-      <th>Wins</th>
-      <th>Draws</th>
-      <th>Losses</th>
-      <th>Points</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% standings.forEach(team => { %>
-      <tr>
-        <td><%= team.name %></td>
-        <td><%= team.matchesPlayed %></td>
-        <td><%= team.wins %></td>
-        <td><%= team.draws %></td>
-        <td><%= team.losses %></td>
-        <td><%= team.points %></td>
-      </tr>
-    <% }); %>
-  </tbody>
-</table>
-   
+
+<body>
+  <div class="gender-selection">
+    <button class="gender-button active" value="male" onclick="toggleTeams('male')">Muški</button>
+    <button class="gender-button" value="female" onclick="toggleTeams('female')">Ženski</button>
+</div>
+
+<div class="team-section male">
+    <div class="grid-container">
+        <div class="grid-item">
+            <h3>Pioniri</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naziv kluba</th>
+                        <th>Odigrano</th>
+                        <th>Pobjeda</th>
+                        <th>Izgubljeno</th>
+                        <th>Dali koseva</th>
+                        <th>Primili koseva</th>
+                        <th>Bodova</th>
+                        <th>Kos razlika</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% pioniriMatches.sort((a, b) => b.points - a.points) // Sortiraj po poenima (od najveće ka najmanjoj vrijednosti)
+                    .forEach(team => { %>
+                        <tr>
+                            <td><%= team.name %></td>
+                            <td><%= team.matchesPlayed %></td>
+                            <td><%= team.wins %></td>
+                            <td><%= team.losses %></td>
+                            <td><%= team.scoredGoals %></td>
+                            <td><%= team.concededGoals %></td>
+                            <td><%= team.points %></td>
+                            <td><%= team.goalDifference %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="grid-item">
+            <h3>Kadeti</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naziv kluba</th>
+                        <th>Odigrano</th>
+                        <th>Pobjeda</th>
+                        <th>Izgubljeno</th>
+                        <th>Dali koseva</th>
+                        <th>Primili koseva</th>
+                        <th>Bodova</th>
+                        <th>Kos razlika</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% kadetiMatches.sort((a, b) => b.points - a.points) // Sortiraj po poenima (od najveće ka najmanjoj vrijednosti)
+                    .forEach(team => { %>
+                        <tr>
+                            <td><%= team.name %></td>
+                            <td><%= team.matchesPlayed %></td>
+                            <td><%= team.wins %></td>
+                            <td><%= team.losses %></td>
+                            <td><%= team.scoredGoals %></td>
+                            <td><%= team.concededGoals %></td>
+                            <td><%= team.points %></td>
+                            <td><%= team.goalDifference %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="grid-item">
+            <h3>Predpioniri</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naziv kluba</th>
+                        <th>Odigrano</th>
+                        <th>Pobjeda</th>
+                        <th>Izgubljeno</th>
+                        <th>Dali koseva</th>
+                        <th>Primili koseva</th>
+                        <th>Bodova</th>
+                        <th>Kos razlika</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% predpioniriMatches.sort((a, b) => b.points - a.points) // Sortiraj po poenima (od najveće ka najmanjoj vrijednosti)
+                    .forEach(team => { %>
+                        <tr>
+                            <td><%= team.name %></td>
+                            <td><%= team.matchesPlayed %></td>
+                            <td><%= team.wins %></td>
+                            <td><%= team.losses %></td>
+                            <td><%= team.scoredGoals %></td>
+                            <td><%= team.concededGoals %></td>
+                            <td><%= team.points %></td>
+                            <td><%= team.goalDifference %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="grid-item">
+            <h3>Juniori</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naziv kluba</th>
+                        <th>Odigrano</th>
+                        <th>Pobjeda</th>
+                        <th>Izgubljeno</th>
+                        <th>Dali koseva</th>
+                        <th>Primili koseva</th>
+                        <th>Bodova</th>
+                        <th>Kos razlika</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% junioriMatches.sort((a, b) => b.points - a.points) // Sortiraj po poenima (od najveće ka najmanjoj vrijednosti)
+                    .forEach(team => { %>
+                        <tr>
+                            <td><%= team.name %></td>
+                            <td><%= team.matchesPlayed %></td>
+                            <td><%= team.wins %></td>
+                            <td><%= team.losses %></td>
+                            <td><%= team.scoredGoals %></td>
+                            <td><%= team.concededGoals %></td>
+                            <td><%= team.points %></td>
+                            <td><%= team.goalDifference %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div class="team-section female" style="display: none;">
+    <div class="grid-container">
+
+        <div class="grid-item">
+            <h3>Predpionirke</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naziv kluba</th>
+                        <th>Odigrano</th>
+                        <th>Pobjeda</th>
+                        <th>Izgubljeno</th>
+                        <th>Dali koseva</th>
+                        <th>Primili koseva</th>
+                        <th>Bodova</th>
+                        <th>Kos razlika</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% predpionirkeMatches.sort((a, b) => b.points - a.points) // Sortiraj po poenima (od najveće ka najmanjoj vrijednosti)
+                    .forEach(team => { %>
+                        <tr>
+                            <td><%= team.name %></td>
+                            <td><%= team.matchesPlayed %></td>
+                            <td><%= team.wins %></td>
+                            <td><%= team.losses %></td>
+                            <td><%= team.scoredGoals %></td>
+                            <td><%= team.concededGoals %></td>
+                            <td><%= team.points %></td>
+                            <td><%= team.goalDifference %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="grid-item">
+            <h3>Pionirke</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naziv kluba</th>
+                        <th>Odigrano</th>
+                        <th>Pobjeda</th>
+                        <th>Izgubljeno</th>
+                        <th>Dali koseva</th>
+                        <th>Primili koseva</th>
+                        <th>Bodova</th>
+                        <th>Kos razlika</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% pionirkeMatches.sort((a, b) => b.points - a.points) // Sortiraj po poenima (od najveće ka najmanjoj vrijednosti)
+                    .forEach(team => { %>
+                        <tr>
+                            <td><%= team.name %></td>
+                            <td><%= team.matchesPlayed %></td>
+                            <td><%= team.wins %></td>
+                            <td><%= team.losses %></td>
+                            <td><%= team.scoredGoals %></td>
+                            <td><%= team.concededGoals %></td>
+                            <td><%= team.points %></td>
+                            <td><%= team.goalDifference %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="grid-item">
+            <h3>Kadetkinje</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naziv kluba</th>
+                        <th>Odigrano</th>
+                        <th>Pobjeda</th>
+                        <th>Izgubljeno</th>
+                        <th>Dali koseva</th>
+                        <th>Primili koseva</th>
+                        <th>Bodova</th>
+                        <th>Kos razlika</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% kadetkinjeMatches.sort((a, b) => b.points - a.points) // Sortiraj po poenima (od najveće ka najmanjoj vrijednosti)
+                    .forEach(team => { %>
+                        <tr>
+                            <td><%= team.name %></td>
+                            <td><%= team.matchesPlayed %></td>
+                            <td><%= team.wins %></td>
+                            <td><%= team.losses %></td>
+                            <td><%= team.scoredGoals %></td>
+                            <td><%= team.concededGoals %></td>
+                            <td><%= team.points %></td>
+                            <td><%= team.goalDifference %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="grid-item">
+            <h3>Juniorke</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naziv kluba</th>
+                        <th>Odigrano</th>
+                        <th>Pobjeda</th>
+                        <th>Izgubljeno</th>
+                        <th>Dali koseva</th>
+                        <th>Primili koseva</th>
+                        <th>Bodova</th>
+                        <th>Kos razlika</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% juniorkeMatches.sort((a, b) => b.points - a.points) // Sortiraj po poenima (od najveće ka najmanjoj vrijednosti)
+                    .forEach(team => { %>
+                        <tr>
+                            <td><%= team.name %></td>
+                            <td><%= team.matchesPlayed %></td>
+                            <td><%= team.wins %></td>
+                            <td><%= team.losses %></td>
+                            <td><%= team.scoredGoals %></td>
+                            <td><%= team.concededGoals %></td>
+                            <td><%= team.points %></td>
+                            <td><%= team.goalDifference %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
 <%- include('footer') -%>
 
-    
+<script>
+  function toggleTeams(selectedGender) {
+      const sections = document.querySelectorAll('.team-section');
+
+      sections.forEach(section => {
+          if (section.classList.contains(selectedGender)) {
+              section.style.display = 'block';
+          } else {
+              section.style.display = 'none';
+          }
+      });
+
+      // Update button active state
+      const buttons = document.querySelectorAll('.gender-button');
+      buttons.forEach(button => {
+          button.classList.remove('active');
+          if (button.value === selectedGender) {
+              button.classList.add('active');
+          }
+      });
+  }
+</script>
     
 
 </body>
