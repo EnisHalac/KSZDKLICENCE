@@ -10,6 +10,8 @@ const crypto = require('crypto');
 const path = require('path');
 const Team = require('./team');
 const Match = require('./match');
+const Player = require('./licence'); // Assuming the Mongoose model is saved in 'licence.js'
+
 
 // Generate session secret for security
 const sessionSecret = crypto.randomBytes(64).toString('hex');
@@ -33,7 +35,7 @@ app.use((req, res, next) => {
 });
 
 // MongoDB connection
-const url = 'mongodb+srv://ahmed:ahmed123@nkcelik.qj8oewc.mongodb.net/?retryWrites=true&w=majority&appName=NKCelik';
+const url = 'mongodb+srv://Enis123:Enis123@kszdk.asbci.mongodb.net/?retryWrites=true&w=majority&appName=KSZDK';
 mongoose.connect(url)
   .then(() => console.log('Connected to MongoDB Atlas'))
   .catch(err => console.error('Error connecting to MongoDB Atlas', err));
@@ -92,8 +94,29 @@ app.get('/home', async (req, res) => {
   }
 });
 
+app.get('/tim/:category', async (req, res) => {
+  try {
+    const category = req.params.category.charAt(0).toUpperCase() + req.params.category.slice(1); // Ovo obezbeđuje veliko slovo na početku
+    console.log(category)
+
+    // Fetch all players based on the selected category
+    const players = await Player.find({ category }).sort({ name: 1 });
+    console.log(players)
+
+    res.render('tim', {
+      category,
+      season: '2024/2025',
+      players // Pass all players to the EJS template
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching team data');
+  }
+});
+
+
+
 // Tim and staff routes
-app.get('/tim', (req, res) => res.render('tim', { user: req.session.user }));
 app.get('/staff', (req, res) => res.render('staff', { user: req.session.user }));
 
 // News routes
@@ -281,7 +304,50 @@ app.post('/delete-match/:id', async (req, res) => {
   }
 });
 
+/*
+const Player = require('./licence'); // Assuming the Mongoose model is saved in 'licence.js'
+const xlsx = require('xlsx');
 
+
+async function insertPlayersFromXlsx(filePath) {
+  // Read the Excel file
+  const workbook = xlsx.readFile(filePath);
+  const sheetName = workbook.SheetNames[0];  // Assuming data is in the first sheet
+  const sheet = workbook.Sheets[sheetName];
+  
+  // Convert sheet data to JSON
+  const jsonData = xlsx.utils.sheet_to_json(sheet, { raw: true });
+
+  // Iterate through each row of the table
+  for (const row of jsonData) {
+    // Create a new player using the row data
+    const birthDate = new Date(Math.round((row["Godina rođenja"] - (25567 + 2)) * 86400 * 1000));
+    const player = new Player({
+      name: row["Ime i prezime"],
+      birthDate: birthDate,  // Date is parsed from the table
+      birthPlace: row["Mjesto rođenja"],
+      imageUrl: row["Slika"],
+      club: row["Klub"]
+    });
+
+    try {
+      // Save the player to MongoDB
+      await player.save();
+      console.log(`Player ${player.name} saved successfully with category: ${player.category}`);
+    } catch (err) {
+      console.error(`Error saving player ${player.name}:`, err);
+    }
+  }
+
+  console.log('All data inserted.');
+}
+
+// File path to the .xlsx file
+const filePath = 'licence.xlsx';  // Replace with the actual path
+
+// Call the function to insert data
+insertPlayersFromXlsx(filePath);
+*/
 
 // Standings route
 app.get('/tabele', async (req, res) => {
@@ -322,5 +388,5 @@ app.get('/tabele', async (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server running at ${serverUrl}`);
+  console.log(`Server running at ${serverUrl}/home`);
 });

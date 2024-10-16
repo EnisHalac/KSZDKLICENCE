@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NK Čelik Team</title>
+  <title>NK Čelik Team - <%= category %></title>
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/tim.css">
-  <link rel="icon" type="image/x-icon" href="images/logo.png">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/tim.css">
+  <link rel="icon" type="image/x-icon" href="/images/logo.png">
 </head>
 <body>
   <%- include('navbar') -%>
 
   <div class="wrapper">
-    <h1 class="season">PREDPIONIRI Sezona: 2024/2025</h1>
+    <h1 class="season"><%= category.toUpperCase() %> Sezona: <%= season %></h1>
 
-    <!-- Navigation buttons for the categories -->
+    <!-- Navigation buttons for the clubs -->
     <div class="navigation-buttons-container">
       <a href="#kengur-group" class="navigation-button">KENGUR</a>
       <a href="#gradina-group" class="navigation-button">GRADINA</a>
@@ -28,64 +28,40 @@
       <a href="#visoko-group" class="navigation-button">VISOKO</a>
     </div>
 
-    <!-- Team container to hold different categories -->
+    <!-- Team container to hold players by club -->
     <div class="team-container" id="team-container">
-
-      <!-- Kengur category -->
-      <div class="position-group" id="kengur-group">
-        <h2>KENGUR</h2>
-        <!-- Players for Kengur category can go here -->
-      </div>
-
-      <!-- Gradina category -->
-      <div class="position-group" id="gradina-group">
-        <h2>GRADINA</h2>
-        <!-- Players for Gradina category can go here -->
-      </div>
-
-      <!-- Maglaj category -->
-      <div class="position-group" id="maglaj-group">
-        <h2>MAGLAJ</h2>
-        <!-- Players for Maglaj category can go here -->
-      </div>
-
-      <!-- Abeceda category -->
-      <div class="position-group" id="abeceda-group">
-        <h2>ABECEDA</h2>
-        <!-- Players for Abeceda category can go here -->
-      </div>
-
-      <!-- Čelik category -->
-      <div class="position-group" id="celik-group">
-        <h2>ČELIK</h2>
-        <!-- Players for Čelik category can go here -->
-      </div>
-
-      <!-- Kakanj category -->
+      <!-- Example club: Kakanj -->
       <div class="position-group" id="kakanj-group">
         <h2>KAKANJ</h2>
-        <!-- Players for Kakanj category can go here -->
+        <% players.filter(player => player.club === 'KK KAKANJ').forEach(function(player) { %>
+          <div class="player-card">
+            <img src="<%= player.imageUrl %>" alt="Player Image">
+            <p><strong>Ime:</strong> <%= player.name %></p>
+            <p><strong>Mesto rođenja:</strong> <%= player.birthPlace %></p>
+            <p><strong>Datum rođenja:</strong> <%= new Date(player.birthDate).toLocaleDateString() %></p>
+          </div>
+        <% }) %>
       </div>
 
-      <!-- Vukovi category -->
-      <div class="position-group" id="vukovi-group">
-        <h2>VUKOVI</h2>
-        <!-- Players for Vukovi category can go here -->
+      <!-- Other clubs follow the same structure -->
+      <div class="position-group" id="celik-group">
+        <h2>Celik</h2>
+        <% players.filter(player => player.club === 'OKK Celik Zenica').forEach(function(player) { %>
+          <div class="player-card">
+            <img src="<%= player.imageUrl %>" alt="Player Image">
+            <p><strong>Ime:</strong> <%= player.name %></p>
+            <p><strong>Mesto rođenja:</strong> <%= player.birthPlace %></p>
+            <p><strong>Datum rođenja:</strong> <%= new Date(player.birthDate).toLocaleDateString() %></p>
+          </div>
+        <% }) %>
       </div>
 
-      <!-- Visoko category -->
-      <div class="position-group" id="visoko-group">
-        <h2>VISOKO</h2>
-        <!-- Players for Visoko category can go here -->
-      </div>
-
+      <!-- Add similar blocks for other clubs: Kengur, Maglaj, Abeceda, Čelik, Vukovi, Visoko -->
     </div>
-
   </div>
 
   <%- include('footer') -%>
 
-  <script src="js/prviTim.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 </html>
