@@ -17,7 +17,6 @@ body {
   text-align: center;
   color: #333; /* Tamnosiva boja za naslove */
   font-weight: 400;
-  /* Uklonjena sjena s naslova */
 }
 
 .team-container {
@@ -37,75 +36,53 @@ body {
   text-align: center;
   color: #333; /* Tamnosiva boja za naslove */
   letter-spacing: 2px;
-  /* Uklonjena sjena s naslova */
 }
 
-.team-member {
+.player-card {
   position: relative;
-  width: calc(25% - 20px);
-  margin: 10px;
-  box-sizing: border-box;
-  border: 2px solid #ddd; /* Dodan svijetlosivi okvir */
-  border-radius: 8px; /* Lagano zaobljeni uglovi */
-  background-color: #ffffff; /* Bijela pozadina kartica */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Blaga sjena ispod kartica */
+  width: calc(19% - 20px); /* Širina kartice (5 kartica u redu) */
+  height: 250px; /* Visina kartice */
+  margin: 10px; /* Razmak između kartica */
+  border: 2px solid #ddd; /* Svijetlosivi okvir */
+  border-radius: 8px; /* Zaobljeni uglovi */
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Blaga sjena ispod kartice */
+  background-color: white;
 }
 
-.team-member img {
+.player-card img {
   width: 100%;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  height: 150px; /* Povećana visina slike */
+  object-fit: cover; /* Osigurava da slika ispuni cijelu karticu */
+  border-radius: 8px 8px 0 0; /* Zaobljeni gornji uglovi */
 }
 
-.player-info, .staff-info {
+.player-info {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 5px;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  transition: height 0.5s, background-color 0.5s;
-  height: 50px;
-  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.7); /* Tamna pozadina */
+  color: white; /* Bijeli tekst */
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  transition: background-color 0.5s ease;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
-.team-member:hover .player-info {
-  height: 100px;
+.player-card:hover .player-info {
+  background-color: rgba(0, 0, 0, 0.9); /* Tamnija pozadina na hover */
 }
 
-.additional-info {
-  display: none;
+.player-info p {
+  margin: 5px 0;
+  font-size: 12px; /* Veličina fonta za tekst */
 }
 
-.team-member:hover .additional-info {
-  display: block;
-}
-
-.player-number {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: #ffffff;
-  padding: 5px;
-  border-top-right-radius: 6px;
-  font-size: 35px;
-  font-weight: bold;
-  color: #333; /* Tamnosiva boja za brojeve */
-}
-
-.player-name, .staff-name {
-  font-size: 16px;
-  letter-spacing: 2px;
-  color: #e74c3c; /* Crvenkasta boja za imena */
-}
-
-.player-surname, .staff-surname {
-  font-size: 20px;
-  letter-spacing: 1px;
-  font-weight: bold;
-  color: #333; /* Tamnosiva boja za prezimena */
+.player-info p strong {
+  color: #e74c3c; /* Crvenkasta boja za naglašeni tekst */
 }
 
 .navigation-buttons-container {
@@ -136,8 +113,8 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-  .team-member {
-    width: 100%;
+  .player-card {
+    width: 100%; /* Kartice će zauzimati punu širinu */
   }
   .navigation-button {
     font-size: 6px;
@@ -147,8 +124,8 @@ body {
 }
 
 @media only screen and (min-width: 601px) and (max-width: 1024px) {
-  .team-member {
-    width: 45%;
+  .player-card {
+    width: 45%; /* Dvije kartice u redu na srednjim ekranima */
     margin: 2.5%;
   }
   .navigation-button {

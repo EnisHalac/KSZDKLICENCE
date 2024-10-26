@@ -97,22 +97,38 @@ app.get('/home', async (req, res) => {
 app.get('/tim/:category', async (req, res) => {
   try {
     const category = req.params.category.charAt(0).toUpperCase() + req.params.category.slice(1); // Ovo obezbeđuje veliko slovo na početku
-    console.log(category)
+    console.log(category);
 
     // Fetch all players based on the selected category
     const players = await Player.find({ category }).sort({ name: 1 });
-    console.log(players)
+    console.log(players);
+
+    // Define the formatName function
+    function formatName(name) {
+      const nameParts = name.toLowerCase().split(' ');
+      return nameParts.map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
+    }
+
+    // Define the formatCity function
+    function formatCity(city) {
+      const cityParts = city.toLowerCase().split(',');
+      const cityName = cityParts[0].charAt(0).toUpperCase() + cityParts[0].slice(1);
+      return cityName;
+    }
 
     res.render('tim', {
       category,
       season: '2024/2025',
-      players // Pass all players to the EJS template
+      players,
+      formatName, // Pass formatName function to EJS
+      formatCity  // Pass formatCity function to EJS
     });
   } catch (err) {
     console.error(err);
     res.status(500).send('Error fetching team data');
   }
 });
+
 
 
 
