@@ -55,6 +55,7 @@ The project is developed using **HTML, CSS, and JavaScript** on the frontend, an
 
 ### Homepage
 ![Homepage](screenshots/home.png)
+![Homepage](screenshots/home2.png)
 
 ### Player Licenses
 ![Licenses](screenshots/licence.png)
