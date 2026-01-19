@@ -50,6 +50,12 @@ The project is developed using **HTML, CSS, and JavaScript** on the frontend, an
 
 ---
 
+## 🌍 Live Website
+
+🔗 https://kszenica.com/
+
+--- 
+
 ## 📸 Screenshots
 
 
