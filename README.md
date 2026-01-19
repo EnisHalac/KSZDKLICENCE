@@ -52,10 +52,6 @@ The project is developed using **HTML, CSS, and JavaScript** on the frontend, an
 
 ## 📸 Screenshots
 
-> **How to add screenshots:**  
-> 1. Create a `screenshots` folder in the repository  
-> 2. Upload images (e.g. `home.png`, `admin.png`, `table.png`)  
-> 3. Images will automatically render in the README
 
 ### Homepage
 ![Homepage](screenshots/home.png)
